@@ -12,16 +12,69 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "feelwell.db";
     private static final int DATABASE_VERSION = 1;
 
-    public static final String TABLE_USER = "user";
+    public static final String TABLE_USER = "USER";
+    public static final String TABLE_DOCTORS = "DOCTORS";
+    public static final String TABLE_TESTS = "TESTS";
+    public static final String TABLE_TEST_HISTORY = "TEST_HISTORY";
+    public static final String TABLE_TASKS = "TASKS";
+    public static final String TABLE_TASK_HISTORY = "TASK_HISTORY";
 
-    private static final String COLUMN_NAME = "name";
-    private static final String COLUMN_BD = "birth_date";
-    private static final String COLUMN_GENDER = "gender";
+    private static final String COLUMN_USER_NAME = "name";
+    private static final String COLUMN_USER_BIRTH_DATE = "birth_date";
+    private static final String COLUMN_USER_GENDER = "gender";
+
+    private static final String COLUMN_DOCTOR_NAME = "name";
+    private static final String COLUMN_DOCTOR_EMAIL = "email";
+    private static final String COLUMN_DOCTOR_FIELD = "field";
+    private static final String COLUMN_DOCTOR_ADDRESS = "address";
+
+    private static final String COLUMN_TEST_NAME = "test_name";
+
+    private static final String COLUMN_TEST_HISTORY_TEST_NAME = "test_name";
+    private static final String COLUMN_TEST_HISTORY_DATE = "date";
+    private static final String COLUMN_TEST_HISTORY_RESULT = "result";
+
+    private static final String COLUMN_TASK_NAME = "task";
+    private static final String COLUMN_TASK_TEST_NAME = "test_name";
+    private static final String COLUMN_TASK_LEVEL = "level";
+
+    private static final String COLUMN_TASK_HISTORY_TASK_NAME = "task";
+    private static final String COLUMN_TASK_HISTORY_DATE = "date";
+    private static final String COLUMN_TASK_HISTORY_STATUS = "status";
 
     private static final String CREATE_USER_TABLE = "CREATE TABLE " + TABLE_USER + "("
-            + COLUMN_NAME + " TEXT NOT NULL, "
-            + COLUMN_BD + " DATE, "
-            + COLUMN_GENDER + " TEXT);";
+            + COLUMN_USER_NAME + " TEXT PRIMARY KEY, "
+            + COLUMN_USER_BIRTH_DATE + " DATE, "
+            + COLUMN_USER_GENDER + " TEXT);";
+
+    private static final String CREATE_DOCTORS_TABLE = "CREATE TABLE " + TABLE_DOCTORS + "("
+            + COLUMN_DOCTOR_NAME + " TEXT NOT NULL, "
+            + COLUMN_DOCTOR_EMAIL + " TEXT PRIMARY KEY, "
+            + COLUMN_DOCTOR_FIELD + " TEXT, "
+            + COLUMN_DOCTOR_ADDRESS + " TEXT);";
+
+    private static final String CREATE_TESTS_TABLE = "CREATE TABLE " + TABLE_TESTS + "("
+            + COLUMN_TEST_NAME + " TEXT PRIMARY KEY);";
+
+    private static final String CREATE_TEST_HISTORY_TABLE = "CREATE TABLE " + TABLE_TEST_HISTORY + "("
+            + COLUMN_TEST_HISTORY_TEST_NAME + " TEXT, "
+            + COLUMN_TEST_HISTORY_DATE + " DATE, "
+            + COLUMN_TEST_HISTORY_RESULT + " TEXT, "
+            + "PRIMARY KEY (" + COLUMN_TEST_HISTORY_TEST_NAME + ", " + COLUMN_TEST_HISTORY_DATE + "), "
+            + "FOREIGN KEY (" + COLUMN_TEST_HISTORY_TEST_NAME + ") REFERENCES " + TABLE_TESTS + "(" + COLUMN_TEST_NAME + ") ON DELETE CASCADE);";
+
+    private static final String CREATE_TASKS_TABLE = "CREATE TABLE " + TABLE_TASKS + "("
+            + COLUMN_TASK_NAME + " TEXT PRIMARY KEY, "
+            + COLUMN_TASK_TEST_NAME + " TEXT, "
+            + COLUMN_TASK_LEVEL + " TEXT, "
+            + "FOREIGN KEY (" + COLUMN_TASK_TEST_NAME + ") REFERENCES " + TABLE_TESTS + "(" + COLUMN_TEST_NAME + ") ON DELETE CASCADE);";
+
+    private static final String CREATE_TASK_HISTORY_TABLE = "CREATE TABLE " + TABLE_TASK_HISTORY + "("
+            + COLUMN_TASK_HISTORY_TASK_NAME + " TEXT, "
+            + COLUMN_TASK_HISTORY_DATE + " DATE, "
+            + COLUMN_TASK_HISTORY_STATUS + " TEXT, "
+            + "PRIMARY KEY (" + COLUMN_TASK_HISTORY_TASK_NAME + ", " + COLUMN_TASK_HISTORY_DATE + "), "
+            + "FOREIGN KEY (" + COLUMN_TASK_HISTORY_TASK_NAME + ") REFERENCES " + TABLE_TASKS + "(" + COLUMN_TASK_NAME + ") ON DELETE CASCADE);";
 
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -30,21 +83,28 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(CREATE_USER_TABLE);
+        db.execSQL(CREATE_DOCTORS_TABLE);
+        db.execSQL(CREATE_TESTS_TABLE);
+        db.execSQL(CREATE_TEST_HISTORY_TABLE);
+        db.execSQL(CREATE_TASKS_TABLE);
+        db.execSQL(CREATE_TASK_HISTORY_TABLE);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_USER);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_DOCTORS);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_TESTS);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_TEST_HISTORY);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_TASKS);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_TASK_HISTORY);
         onCreate(db);
     }
 
-    public void insertUser(String name, String birthDate, String gender) {
-        SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues values = new ContentValues(); // This was missing
-        values.put(COLUMN_NAME, name);
-        values.put(COLUMN_BD, birthDate);
-        values.put(COLUMN_GENDER, gender);
-        db.insert(TABLE_USER, null, values);
-        db.close();
+    @Override
+    public void onOpen(SQLiteDatabase db) {
+        super.onOpen(db);
+        db.execSQL("PRAGMA foreign_keys=ON;"); // Enable foreign key constraints
     }
+
 }
