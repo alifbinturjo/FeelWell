@@ -2,6 +2,7 @@ package com.example.feelwell;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
@@ -107,4 +108,35 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL("PRAGMA foreign_keys=ON;"); // Enable foreign key constraints
     }
 
+    // Check if user exists in the database
+    public boolean isUserExists() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT " + COLUMN_USER_NAME + " FROM " + TABLE_USER + " LIMIT 1", null);
+        boolean exists = cursor.moveToFirst(); // Use moveToFirst to check if there is a result
+        cursor.close();
+        return exists;
+    }
+
+    // Get the user's name
+    public String getUserName() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT " + COLUMN_USER_NAME + " FROM " + TABLE_USER + " LIMIT 1", null);
+        String name = "";
+        if (cursor.moveToFirst()) {
+            name = cursor.getString(0);
+        }
+        cursor.close();
+        return name;
+    }
+
+    // Insert user into the database
+    public void insertUser(String name, String birthDate, String gender) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_USER_NAME, name);
+        values.put(COLUMN_USER_BIRTH_DATE, birthDate);
+        values.put(COLUMN_USER_GENDER, gender);
+        db.insert(TABLE_USER, null, values);
+        db.close();  // Close the database connection after inserting
+    }
 }
