@@ -13,7 +13,7 @@
         android:theme="@style/Theme.FeelWell"
         tools:targetApi="31">
         <activity
-            android:name=".Page_2"
+            android:name=".UserinfoActivity"
             android:exported="false" />
         <activity
             android:name=".SplashActivity"
