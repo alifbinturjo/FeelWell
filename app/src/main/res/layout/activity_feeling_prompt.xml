@@ -1,10 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".FeelingPromptActivity">
+    android:padding="16dp"
+    android:background="@color/white">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <!-- Question -->
+    <TextView
+        android:id="@+id/feelingQuestion"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="How are you feeling today?"
+        android:textSize="24sp"
+        android:textColor="@color/black"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp"/>
+
+    <!-- Buttons for feelings -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_below="@id/feelingQuestion"
+        android:layout_marginTop="30dp"
+        android:gravity="center">
+
+        <Button
+            android:id="@+id/btnDepressed"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Depressed"
+            android:layout_marginBottom="16dp"/>
+
+        <Button
+            android:id="@+id/btnStressed"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Stressed"
+            android:layout_marginBottom="16dp"/>
+
+        <Button
+            android:id="@+id/btnAnxiety"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Anxiety"
+            android:layout_marginBottom="16dp"/>
+
+        <Button
+            android:id="@+id/btnAll"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="All of the above"/>
+    </LinearLayout>
+
+</RelativeLayout>
