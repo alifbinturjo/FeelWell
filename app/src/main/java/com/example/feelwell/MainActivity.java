@@ -22,14 +22,12 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // Handling system bar insets
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
 
-        // Initialize Database Helper
         dbHelper = new DatabaseHelper(this);
         SQLiteDatabase db = dbHelper.getWritableDatabase();
 
@@ -37,7 +35,6 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(this, "Database created successfully!", Toast.LENGTH_SHORT).show();
         }
 
-        // Check if user exists
         if (dbHelper.isUserExists()) {
             String userName = dbHelper.getUserName();
             Toast.makeText(this, "Welcome, " + userName + "!", Toast.LENGTH_LONG).show();
