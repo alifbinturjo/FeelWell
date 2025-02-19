@@ -12,23 +12,32 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.FeelWell"
         tools:targetApi="31">
-        <activity
-            android:name=".FeelingPromptActivity"
-            android:exported="false" />
-        <activity
-            android:name=".UserinfoActivity"
-            android:exported="false" />
-        <activity
-            android:name=".SplashActivity"
+
+        <activity android:name=".ProfileActivity"
+            android:exported="false"
+            android:theme="@style/Theme.FeelWell.NoActionBar" />
+
+        <activity android:name=".FeelingPromptActivity"
+            android:exported="false"
+            android:theme="@style/Theme.FeelWell.NoActionBar" />
+
+        <activity android:name=".UserinfoActivity"
+            android:exported="false"
+            android:theme="@style/Theme.FeelWell.NoActionBar" />
+
+        <activity android:name=".SplashActivity"
             android:exported="true"
-            android:theme="@style/Theme.FeelWell.Splash">
+            android:theme="@style/Theme.FeelWell.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity" />
+
+        <activity android:name=".MainActivity"
+            android:exported="false"
+            android:theme="@style/Theme.FeelWell.NoActionBar" />
+
     </application>
 
 </manifest>

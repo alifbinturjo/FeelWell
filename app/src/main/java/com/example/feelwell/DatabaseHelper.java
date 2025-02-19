@@ -139,4 +139,27 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.insert(TABLE_USER, null, values);
         db.close();  // Close the database connection after inserting
     }
+    // Get the user's birth date
+    public String getUserBirthDate() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT " + COLUMN_USER_BIRTH_DATE + " FROM " + TABLE_USER + " LIMIT 1", null);
+        String birthDate = "";
+        if (cursor.moveToFirst()) {
+            birthDate = cursor.getString(0);
+        }
+        cursor.close();
+        return birthDate;
+    }
+
+    // Get the user's gender
+    public String getUserGender() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT " + COLUMN_USER_GENDER + " FROM " + TABLE_USER + " LIMIT 1", null);
+        String gender = "";
+        if (cursor.moveToFirst()) {
+            gender = cursor.getString(0);
+        }
+        cursor.close();
+        return gender;
+    }
 }
