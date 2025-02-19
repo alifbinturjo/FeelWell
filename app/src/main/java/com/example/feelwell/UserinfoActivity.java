@@ -1,6 +1,7 @@
 package com.example.feelwell;
 
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -23,6 +24,7 @@ public class UserinfoActivity extends AppCompatActivity {
     private Button buttonPickDate, buttonSubmit;
     private String selectedGender = "";
     private String selectedDate = "";
+    private DatabaseHelper databaseHelper;  // Database Helper instance
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +36,8 @@ public class UserinfoActivity extends AppCompatActivity {
         spinnerGender = findViewById(R.id.spinnerGender);
         buttonPickDate = findViewById(R.id.buttonPickDate);
         buttonSubmit = findViewById(R.id.buttonSubmit);
+
+        databaseHelper = new DatabaseHelper(this);  // Initialize DatabaseHelper
 
         setupGenderSpinner();
         setupDatePicker();
@@ -84,7 +88,14 @@ public class UserinfoActivity extends AppCompatActivity {
             if (name.isEmpty() || selectedDate.isEmpty() || selectedGender.isEmpty()) {
                 Toast.makeText(UserinfoActivity.this, "Please fill all fields", Toast.LENGTH_SHORT).show();
             } else {
-                Toast.makeText(UserinfoActivity.this, "User Info Saved\nName: " + name + "\nDOB: " + selectedDate + "\nGender: " + selectedGender, Toast.LENGTH_LONG).show();
+                // Insert user into database
+                databaseHelper.insertUser(name, selectedDate, selectedGender);
+                Toast.makeText(UserinfoActivity.this, "User Info Saved", Toast.LENGTH_SHORT).show();
+
+                // Redirect to FeelingPromptActivity
+                Intent intent = new Intent(UserinfoActivity.this, FeelingPromptActivity.class);
+                startActivity(intent);
+                finish(); // Close the current activity
             }
         });
     }
