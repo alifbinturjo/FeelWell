@@ -90,7 +90,7 @@ public class UserinfoActivity extends AppCompatActivity {
             } else {
                 // Insert user into database
                 databaseHelper.insertUser(name, selectedDate, selectedGender);
-                Toast.makeText(UserinfoActivity.this, "User Info Saved", Toast.LENGTH_SHORT).show();
+                Toast.makeText(UserinfoActivity.this, "Welcome!", Toast.LENGTH_SHORT).show();
 
                 // Redirect to FeelingPromptActivity
                 Intent intent = new Intent(UserinfoActivity.this, FeelingPromptActivity.class);

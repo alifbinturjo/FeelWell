@@ -10,7 +10,7 @@
         android:id="@+id/feelingQuestion"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="How are you feeling today?"
+        android:text="How are you feeling now?"
         android:textSize="24sp"
         android:textColor="@color/black"
         android:layout_centerHorizontal="true"
@@ -29,14 +29,7 @@
             android:id="@+id/btnDepressed"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Depressed"
-            android:layout_marginBottom="16dp"/>
-
-        <Button
-            android:id="@+id/btnStressed"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Stressed"
+            android:text="Depression"
             android:layout_marginBottom="16dp"/>
 
         <Button
@@ -47,10 +40,31 @@
             android:layout_marginBottom="16dp"/>
 
         <Button
+            android:id="@+id/btnStressed"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Stress"
+            android:layout_marginBottom="16dp"/>
+
+        <Button
             android:id="@+id/btnAll"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="All of the above"/>
+            android:text="All of the Above"
+            android:layout_marginBottom="16dp"/>
+
+        <Button
+            android:id="@+id/btnLowSelfEsteem"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Low Self-Esteem"
+            android:layout_marginBottom="16dp"/>
+
+        <Button
+            android:id="@+id/btnFine"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Fine"/>
     </LinearLayout>
 
 </RelativeLayout>

@@ -15,22 +15,17 @@ public class FeelingPromptActivity extends AppCompatActivity {
 
         // Initialize buttons
         Button btnDepressed = findViewById(R.id.btnDepressed);
-        Button btnStressed = findViewById(R.id.btnStressed);
         Button btnAnxiety = findViewById(R.id.btnAnxiety);
+        Button btnStressed = findViewById(R.id.btnStressed);
+        Button btnLowSelfEsteem = findViewById(R.id.btnLowSelfEsteem);
         Button btnAll = findViewById(R.id.btnAll);
+        Button btnFine = findViewById(R.id.btnFine);
 
         // Set click listeners
         btnDepressed.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                navigateToMainActivity("Depressed");
-            }
-        });
-
-        btnStressed.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                navigateToMainActivity("Stressed");
+                navigateToMainActivity("Depression");
             }
         });
 
@@ -41,10 +36,32 @@ public class FeelingPromptActivity extends AppCompatActivity {
             }
         });
 
+        btnStressed.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                navigateToMainActivity("Stress");
+            }
+        });
+
+        btnLowSelfEsteem.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                navigateToMainActivity("Low Self-Esteem");
+            }
+        });
+
         btnAll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                navigateToMainActivity("All of the above");
+                // If "All of the Above" is selected, pass Depression, Anxiety, and Stress
+                navigateToMainActivity("Depression, Anxiety, Stress");
+            }
+        });
+
+        btnFine.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                navigateToMainActivity("Fine");
             }
         });
     }
