@@ -2,12 +2,10 @@ package com.example.feelwell;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -26,31 +24,25 @@ public class MainActivity extends AppCompatActivity {
             feelingTextView.setText("You're feeling: " + feeling);
         }
 
-        // Initialize Bottom Navigation
-        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
-
-        // Get the menu and add items dynamically (without icons)
-        Menu menu = bottomNavigationView.getMenu();
-        menu.add(0, 1, 0, "Assessment");
-        menu.add(0, 2, 1, "Task");
-        menu.add(0, 3, 2, "Profile");
-
-        // Handle menu item clicks
-        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+        // Button: Take an Assessment
+        Button takeAssessmentButton = findViewById(R.id.takeAssessmentButton);
+        takeAssessmentButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getItemId()) {
-                    case 1:
-                        // TODO: Implement Assessment Screen
-                        return true;
-                    case 2:
-                        // TODO: Implement Task Screen
-                        return true;
-                    case 3:
-                        startActivity(new Intent(MainActivity.this, ProfileActivity.class));
-                        return true;
-                }
-                return false;
+            public void onClick(View v) {
+                // Navigate to AssessmentActivity
+                Intent assessmentIntent = new Intent(MainActivity.this, AssessmentActivity.class);
+                startActivity(assessmentIntent);
+            }
+        });
+
+        // Button: Do Task
+        Button doTaskButton = findViewById(R.id.doTaskButton);
+        doTaskButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Navigate to TaskActivity
+                Intent taskIntent = new Intent(MainActivity.this, TaskActivity.class);
+                startActivity(taskIntent);
             }
         });
     }
