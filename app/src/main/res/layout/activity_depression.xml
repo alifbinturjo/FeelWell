@@ -5,7 +5,19 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".AssessmentActivity">
+    tools:context=".DepressionActivity">
+
+    <!-- Frozen Section: Instruction Text -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Over the last 2 weeks, how often have you been bothered by any of the following problems?"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:padding="16dp"
+        android:background="@color/teal_700"
+        android:textColor="@color/white"
+        android:gravity="center" />
 
     <!-- Top Bar (Frozen) -->
     <LinearLayout

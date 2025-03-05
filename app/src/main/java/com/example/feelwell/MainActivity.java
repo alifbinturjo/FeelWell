@@ -30,8 +30,8 @@ public class MainActivity extends AppCompatActivity {
         takeAssessmentButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Navigate to AssessmentActivity
-                Intent assessmentIntent = new Intent(MainActivity.this, AssessmentActivity.class);
+                // Navigate to DepressionActivity
+                Intent assessmentIntent = new Intent(MainActivity.this, DepressionActivity.class);
                 startActivity(assessmentIntent);
             }
         });

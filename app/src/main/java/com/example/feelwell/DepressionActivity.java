@@ -7,7 +7,7 @@ import android.widget.RadioGroup;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
-public class AssessmentActivity extends AppCompatActivity {
+public class DepressionActivity extends AppCompatActivity {
 
     // Declare RadioGroups for all 9 questions
     private RadioGroup[] questionRadioGroups;
@@ -15,7 +15,7 @@ public class AssessmentActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_assessment);
+        setContentView(R.layout.activity_depression);
 
         // Initialize RadioGroups for all 9 questions
         questionRadioGroups = new RadioGroup[]{
@@ -48,7 +48,7 @@ public class AssessmentActivity extends AppCompatActivity {
 
             if (selectedId == -1) {
                 // If no option is selected, show an error message
-                Toast.makeText(AssessmentActivity.this, "Please answer all questions", Toast.LENGTH_SHORT).show();
+                Toast.makeText(DepressionActivity.this, "Please answer all questions", Toast.LENGTH_SHORT).show();
                 return;
             }
 
@@ -65,7 +65,7 @@ public class AssessmentActivity extends AppCompatActivity {
 
         // Display the result using a Toast message
         // Checking
-        Toast.makeText(AssessmentActivity.this, result, Toast.LENGTH_LONG).show();
+        Toast.makeText(DepressionActivity.this, result, Toast.LENGTH_LONG).show();
     }
 
     private String interpretDepressionScore(int totalScore) {

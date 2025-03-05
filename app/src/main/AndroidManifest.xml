@@ -13,13 +13,29 @@
         android:theme="@style/Theme.FeelWell"
         tools:targetApi="31">
         <activity
-            android:name=".TaskActivity"
+            android:name=".LowSelfEsteemActivity"
             android:exported="false"
         android:theme="@style/Theme.FeelWell.NoActionBar" />
         <activity
-            android:name=".AssessmentActivity"
+            android:name=".AllOfTheAboveActivity"
             android:exported="false"
         android:theme="@style/Theme.FeelWell.NoActionBar" />
+        <activity
+            android:name=".StressActivity"
+            android:exported="false"
+            android:theme="@style/Theme.FeelWell.NoActionBar" />
+        <activity
+            android:name=".AnxietyActivity"
+            android:exported="false"
+            android:theme="@style/Theme.FeelWell.NoActionBar" />
+        <activity
+            android:name=".TaskActivity"
+            android:exported="false"
+            android:theme="@style/Theme.FeelWell.NoActionBar" />
+        <activity
+            android:name=".DepressionActivity"
+            android:exported="false"
+            android:theme="@style/Theme.FeelWell.NoActionBar" />
         <activity
             android:name=".ProfileActivity"
             android:exported="false"
@@ -46,7 +62,6 @@
             android:name=".MainActivity"
             android:exported="false"
             android:theme="@style/Theme.FeelWell.NoActionBar" />
-
     </application>
 
 </manifest>
