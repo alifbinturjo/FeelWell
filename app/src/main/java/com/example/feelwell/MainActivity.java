@@ -30,8 +30,20 @@ public class MainActivity extends AppCompatActivity {
         takeAssessmentButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Navigate to DepressionActivity
-                Intent assessmentIntent = new Intent(MainActivity.this, DepressionActivity.class);
+                // Navigate to different activity based on feeling
+                Intent assessmentIntent;
+                if ("Depression".equals(feeling)) {
+                    assessmentIntent = new Intent(MainActivity.this, DepressionActivity.class);
+                } else if ("Stress".equals(feeling)) {
+                    assessmentIntent = new Intent(MainActivity.this, StressActivity.class);
+                } else if ("Anxiety".equals(feeling)) {
+                    assessmentIntent = new Intent(MainActivity.this, AnxietyActivity.class);
+                } else if ("Low Self-Esteem".equals(feeling)) {
+                    assessmentIntent = new Intent(MainActivity.this, LowSelfEsteemActivity.class);
+                } else {
+                    // For all other feelings (or if no feeling is provided), move to the general Assessment Activity
+                    assessmentIntent = new Intent(MainActivity.this, AllOfTheAboveActivity.class);
+                }
                 startActivity(assessmentIntent);
             }
         });
