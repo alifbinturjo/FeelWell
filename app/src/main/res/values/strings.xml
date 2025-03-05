@@ -4,4 +4,5 @@
     <string name="enter_your_birth_date_yyyy_mm_dd">Enter your birth date (YYYY-MM-DD)</string>
     <string name="enter_your_gender">Enter your gender</string>
     <string name="save">Save</string>
+    <string name="profile_button_description">Profile Button</string>
 </resources>
