@@ -7,4 +7,13 @@
     android:layout_height="match_parent"
     tools:context=".TaskActivity">
 
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="411dp"
+        android:layout_height="733dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/brain" />
 </androidx.constraintlayout.widget.ConstraintLayout>
