@@ -6,67 +6,49 @@
     android:padding="16dp"
     android:background="@color/white">
 
-    <!-- User Details Section (Minimal Space at Top) -->
-    <LinearLayout
+    <!-- Profile Info Table (Horizontally Arranged) -->
+    <TableLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:paddingBottom="10dp">
+        android:background="@color/teal_200"
+        android:padding="8dp"
+        android:stretchColumns="*">
 
-        <TextView
-            android:id="@+id/tvUserName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Name: "
-            android:textSize="18sp"
-            android:textColor="@color/black"
-            android:layout_gravity="start"/>
-
-        <TextView
-            android:id="@+id/tvUserAge"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Age: "
-            android:textSize="16sp"
-            android:textColor="@color/black"
-            android:layout_gravity="start"/>
-
-        <TextView
-            android:id="@+id/tvUserGender"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Gender: "
-            android:textSize="16sp"
-            android:textColor="@color/black"
-            android:layout_gravity="start"/>
-    </LinearLayout>
-
-    <!-- Space for other details -->
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@android:color/darker_gray"
-        android:layout_marginTop="5dp"
-        android:layout_marginBottom="10dp"/>
-
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <LinearLayout
+        <TableRow
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_height="wrap_content">
 
-            <!-- Other Details Placeholder -->
             <TextView
-                android:id="@+id/tvOtherDetails"
-                android:layout_width="wrap_content"
+                android:id="@+id/tvUserName"
+                android:layout_width="0dp"
+                android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:text="Other details will go here..."
-                android:textSize="16sp"
-                android:textColor="@color/black"/>
-        </LinearLayout>
-    </ScrollView>
+                android:textSize="18sp"
+                android:textColor="@color/white"
+                android:gravity="center"
+                android:padding="8dp"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/tvUserAge"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:textColor="@color/white"
+                android:gravity="center"
+                android:padding="8dp"/>
+
+            <TextView
+                android:id="@+id/tvUserGender"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:textColor="@color/white"
+                android:gravity="center"
+                android:padding="8dp"/>
+        </TableRow>
+    </TableLayout>
 
 </LinearLayout>

@@ -19,7 +19,7 @@ public class FeelingPromptActivity extends AppCompatActivity {
         Button btnStressed = findViewById(R.id.btnStressed);
         Button btnLowSelfEsteem = findViewById(R.id.btnLowSelfEsteem);
         Button btnAll = findViewById(R.id.btnAll);
-        Button btnFine = findViewById(R.id.btnFine);
+
 
         // Set click listeners
         btnDepressed.setOnClickListener(new View.OnClickListener() {
@@ -58,12 +58,7 @@ public class FeelingPromptActivity extends AppCompatActivity {
             }
         });
 
-        btnFine.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                navigateToMainActivity("Fine");
-            }
-        });
+
     }
 
     private void navigateToMainActivity(String feeling) {
