@@ -64,6 +64,7 @@ public class AssessmentActivity extends AppCompatActivity {
         String result = interpretDepressionScore(totalScore);
 
         // Display the result using a Toast message
+        // Checking
         Toast.makeText(AssessmentActivity.this, result, Toast.LENGTH_LONG).show();
     }
 
