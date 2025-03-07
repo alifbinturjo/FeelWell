@@ -1,10 +1,733 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".StressActivity">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <!-- Frozen Section: Instruction Text -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Over the last month, how often have you been bothered by any of the following problems?"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:padding="16dp"
+        android:background="@color/teal_700"
+        android:textColor="@color/white"
+        android:gravity="center" />
+
+    <!-- Top Bar (Frozen) -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="@color/teal_700"
+        android:padding="8dp">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Never"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            android:gravity="center" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Almost Never"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            android:gravity="center" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Sometimes"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            android:gravity="center" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Fairly Often"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            android:gravity="center" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Very Often"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            android:gravity="center" />
+    </LinearLayout>
+
+    <!-- Scrollable Content -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <!-- Question 1 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingBottom="8dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="1. In the last month, how often have you been upset because of something that happened unexpectedly?"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <RadioGroup
+                    android:id="@+id/stressQuestion1RadioGroup"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <RadioButton
+                        android:id="@+id/stressQ1_option1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text=""
+                        android:buttonTint="@color/teal_700" />
+
+                    <RadioButton
+                        android:id="@+id/stressQ1_option2"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text=""
+                        android:buttonTint="@color/teal_700" />
+
+                    <RadioButton
+                        android:id="@+id/stressQ1_option3"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text=""
+                        android:buttonTint="@color/teal_700" />
+
+                    <RadioButton
+                        android:id="@+id/stressQ1_option4"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text=""
+                        android:buttonTint="@color/teal_700" />
+
+                    <RadioButton
+                        android:id="@+id/stressQ1_option5"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text=""
+                        android:buttonTint="@color/teal_700" />
+                </RadioGroup>
+            </LinearLayout>
+
+            <!-- Question 2 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingBottom="8dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="2. In the last month, how often have you felt that you were unable to control the important things in your life?"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <RadioGroup
+                    android:id="@+id/stressQuestion2RadioGroup"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <RadioButton
+                        android:id="@+id/stressQ2_option1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text=""
+                        android:buttonTint="@color/teal_700" />
+
+                    <RadioButton
+                        android:id="@+id/stressQ2_option2"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text=""
+                        android:buttonTint="@color/teal_700" />
+
+                    <RadioButton
+                        android:id="@+id/stressQ2_option3"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text=""
+                        android:buttonTint="@color/teal_700" />
+
+                    <RadioButton
+                        android:id="@+id/stressQ2_option4"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text=""
+                        android:buttonTint="@color/teal_700" />
+
+                    <RadioButton
+                        android:id="@+id/stressQ2_option5"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text=""
+                        android:buttonTint="@color/teal_700" />
+                </RadioGroup>
+            </LinearLayout>
+
+            <!-- Question 3 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingBottom="8dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="3. In the last month, how often have you felt nervous and stressed?"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <RadioGroup
+                    android:id="@+id/stressQuestion3RadioGroup"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <RadioButton
+                        android:id="@+id/stressQ3_option1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text=""
+                        android:buttonTint="@color/teal_700" />
+
+                    <RadioButton
+                        android:id="@+id/stressQ3_option2"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text=""
+                        android:buttonTint="@color/teal_700" />
+
+                    <RadioButton
+                        android:id="@+id/stressQ3_option3"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text=""
+                        android:buttonTint="@color/teal_700" />
+
+                    <RadioButton
+                        android:id="@+id/stressQ3_option4"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text=""
+                        android:buttonTint="@color/teal_700" />
+
+                    <RadioButton
+                        android:id="@+id/stressQ3_option5"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text=""
+                        android:buttonTint="@color/teal_700" />
+                </RadioGroup>
+            </LinearLayout>
+
+            <!-- Question 4 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingBottom="8dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="4. In the last month, how often have you felt confident about your ability to handle your personal problems?"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <RadioGroup
+                    android:id="@+id/stressQuestion4RadioGroup"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <RadioButton
+                        android:id="@+id/stressQ4_option1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text=""
+                        android:buttonTint="@color/teal_700" />
+
+                    <RadioButton
+                        android:id="@+id/stressQ4_option2"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text=""
+                        android:buttonTint="@color/teal_700" />
+
+                    <RadioButton
+                        android:id="@+id/stressQ4_option3"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text=""
+                        android:buttonTint="@color/teal_700" />
+
+                    <RadioButton
+                        android:id="@+id/stressQ4_option4"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text=""
+                        android:buttonTint="@color/teal_700" />
+
+                    <RadioButton
+                        android:id="@+id/stressQ4_option5"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text=""
+                        android:buttonTint="@color/teal_700" />
+                </RadioGroup>
+            </LinearLayout>
+
+            <!-- Question 5 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingBottom="8dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="5. In the last month, how often have you felt that things were going your way?"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <RadioGroup
+                    android:id="@+id/stressQuestion5RadioGroup"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <RadioButton
+                        android:id="@+id/stressQ5_option1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text=""
+                        android:buttonTint="@color/teal_700" />
+
+                    <RadioButton
+                        android:id="@+id/stressQ5_option2"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text=""
+                        android:buttonTint="@color/teal_700" />
+
+                    <RadioButton
+                        android:id="@+id/stressQ5_option3"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text=""
+                        android:buttonTint="@color/teal_700" />
+
+                    <RadioButton
+                        android:id="@+id/stressQ5_option4"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text=""
+                        android:buttonTint="@color/teal_700" />
+
+                    <RadioButton
+                        android:id="@+id/stressQ5_option5"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text=""
+                        android:buttonTint="@color/teal_700" />
+                </RadioGroup>
+            </LinearLayout>
+
+            <!-- Question 6 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingBottom="8dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="6. In the last month, how often have you found that you could not cope with all the things that you had to do?"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <RadioGroup
+                    android:id="@+id/stressQuestion6RadioGroup"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <RadioButton
+                        android:id="@+id/stressQ6_option1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text=""
+                        android:buttonTint="@color/teal_700" />
+
+                    <RadioButton
+                        android:id="@+id/stressQ6_option2"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text=""
+                        android:buttonTint="@color/teal_700" />
+
+                    <RadioButton
+                        android:id="@+id/stressQ6_option3"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text=""
+                        android:buttonTint="@color/teal_700" />
+
+                    <RadioButton
+                        android:id="@+id/stressQ6_option4"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text=""
+                        android:buttonTint="@color/teal_700" />
+
+                    <RadioButton
+                        android:id="@+id/stressQ6_option5"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text=""
+                        android:buttonTint="@color/teal_700" />
+                </RadioGroup>
+            </LinearLayout>
+
+            <!-- Question 7 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingBottom="8dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="7. In the last month, how often have you been able to control irritations in your life?"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <RadioGroup
+                    android:id="@+id/stressQuestion7RadioGroup"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <RadioButton
+                        android:id="@+id/stressQ7_option1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text=""
+                        android:buttonTint="@color/teal_700" />
+
+                    <RadioButton
+                        android:id="@+id/stressQ7_option2"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text=""
+                        android:buttonTint="@color/teal_700" />
+
+                    <RadioButton
+                        android:id="@+id/stressQ7_option3"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text=""
+                        android:buttonTint="@color/teal_700" />
+
+                    <RadioButton
+                        android:id="@+id/stressQ7_option4"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text=""
+                        android:buttonTint="@color/teal_700" />
+
+                    <RadioButton
+                        android:id="@+id/stressQ7_option5"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text=""
+                        android:buttonTint="@color/teal_700" />
+                </RadioGroup>
+            </LinearLayout>
+
+            <!-- Question 8 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingBottom="8dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="8. In the last month, how often have you felt that you were on top of things?"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <RadioGroup
+                    android:id="@+id/stressQuestion8RadioGroup"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <RadioButton
+                        android:id="@+id/stressQ8_option1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text=""
+                        android:buttonTint="@color/teal_700" />
+
+                    <RadioButton
+                        android:id="@+id/stressQ8_option2"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text=""
+                        android:buttonTint="@color/teal_700" />
+
+                    <RadioButton
+                        android:id="@+id/stressQ8_option3"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text=""
+                        android:buttonTint="@color/teal_700" />
+
+                    <RadioButton
+                        android:id="@+id/stressQ8_option4"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text=""
+                        android:buttonTint="@color/teal_700" />
+
+                    <RadioButton
+                        android:id="@+id/stressQ8_option5"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text=""
+                        android:buttonTint="@color/teal_700" />
+                </RadioGroup>
+            </LinearLayout>
+
+            <!-- Question 9 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingBottom="8dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="9. In the last month, how often have you been angered because of things that happened that were outside of your control?"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <RadioGroup
+                    android:id="@+id/stressQuestion9RadioGroup"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <RadioButton
+                        android:id="@+id/stressQ9_option1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text=""
+                        android:buttonTint="@color/teal_700" />
+
+                    <RadioButton
+                        android:id="@+id/stressQ9_option2"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text=""
+                        android:buttonTint="@color/teal_700" />
+
+                    <RadioButton
+                        android:id="@+id/stressQ9_option3"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text=""
+                        android:buttonTint="@color/teal_700" />
+
+                    <RadioButton
+                        android:id="@+id/stressQ9_option4"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text=""
+                        android:buttonTint="@color/teal_700" />
+
+                    <RadioButton
+                        android:id="@+id/stressQ9_option5"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text=""
+                        android:buttonTint="@color/teal_700" />
+                </RadioGroup>
+            </LinearLayout>
+
+            <!-- Question 10 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingBottom="8dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="10. In the last month, how often have you felt difficulties were piling up so high that you could not overcome them?"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <RadioGroup
+                    android:id="@+id/stressQuestion10RadioGroup"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <RadioButton
+                        android:id="@+id/stressQ10_option1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text=""
+                        android:buttonTint="@color/teal_700" />
+
+                    <RadioButton
+                        android:id="@+id/stressQ10_option2"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text=""
+                        android:buttonTint="@color/teal_700" />
+
+                    <RadioButton
+                        android:id="@+id/stressQ10_option3"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text=""
+                        android:buttonTint="@color/teal_700" />
+
+                    <RadioButton
+                        android:id="@+id/stressQ10_option4"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text=""
+                        android:buttonTint="@color/teal_700" />
+
+                    <RadioButton
+                        android:id="@+id/stressQ10_option5"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text=""
+                        android:buttonTint="@color/teal_700" />
+                </RadioGroup>
+            </LinearLayout>
+
+            <!-- Add this inside the ScrollView, below the last question -->
+            <Button
+                android:id="@+id/stressCalculateButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Calculate Score"
+                android:backgroundTint="@color/teal_700"
+                android:textColor="@color/white"
+                android:padding="16dp"
+                android:layout_marginTop="16dp" />
+
+            <TextView
+                android:id="@+id/stressResultTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Result will appear here"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:gravity="center"
+                android:padding="16dp"
+                android:layout_marginTop="16dp"
+                android:visibility="gone" />
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>
