@@ -81,6 +81,23 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
+    // Insert predefined test names into the TESTS table
+    public void insertPredefinedTests() {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        // List of predefined test names
+        String[] testNames = {"dass21", "pss", "rses", "gad7", "phq9"};
+
+        // Insert each test name into the TESTS table
+        for (String testName : testNames) {
+            ContentValues values = new ContentValues();
+            values.put(COLUMN_TEST_NAME, testName);
+            db.insert(TABLE_TESTS, null, values);
+        }
+
+        db.close(); // Close the database connection
+    }
+
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(CREATE_USER_TABLE);
@@ -89,6 +106,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL(CREATE_TEST_HISTORY_TABLE);
         db.execSQL(CREATE_TASKS_TABLE);
         db.execSQL(CREATE_TASK_HISTORY_TABLE);
+        // Insert predefined test names
+        insertPredefinedTests();
     }
 
     @Override
@@ -161,5 +180,18 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
         cursor.close();
         return gender;
+    }
+
+    // Insert test history into the TEST_HISTORY table
+    public void insertTestHistory(String testName, String date, String result) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_TEST_HISTORY_TEST_NAME, testName);
+        values.put(COLUMN_TEST_HISTORY_DATE, date);
+        values.put(COLUMN_TEST_HISTORY_RESULT, result);
+
+        db.insert(TABLE_TEST_HISTORY, null, values);
+        db.close(); // Close the database connection
     }
 }

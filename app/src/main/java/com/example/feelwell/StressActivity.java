@@ -66,6 +66,14 @@ public class StressActivity extends AppCompatActivity {
 
         // Display the result using a Toast message
         Toast.makeText(StressActivity.this, result, Toast.LENGTH_LONG).show();
+
+        DatabaseHelper dbHelper = new DatabaseHelper(this);
+
+        // Get the current date
+        String currentDate = java.text.DateFormat.getDateTimeInstance().format(new java.util.Date());
+
+        // Insert the test history
+        dbHelper.insertTestHistory("pss", currentDate, result);
     }
 
     private String interpretStressScore(int totalScore) {
