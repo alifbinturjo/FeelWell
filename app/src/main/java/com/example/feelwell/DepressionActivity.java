@@ -43,7 +43,8 @@ public class DepressionActivity extends AppCompatActivity {
         int totalScore = 0;
 
         // Loop through all RadioGroups to get the selected option
-        for (RadioGroup radioGroup : questionRadioGroups) {
+        for (int i = 0; i < questionRadioGroups.length; i++) {
+            RadioGroup radioGroup = questionRadioGroups[i];
             int selectedId = radioGroup.getCheckedRadioButtonId();
 
             if (selectedId == -1) {
@@ -56,16 +57,33 @@ public class DepressionActivity extends AppCompatActivity {
             RadioButton selectedButton = findViewById(selectedId);
             int index = radioGroup.indexOfChild(selectedButton);
 
-            // Add the score based on the index
-            totalScore += index;
+            // Calculate the score based on the index
+            totalScore += getScoreForQuestion(index);
         }
 
         // Interpret the total score
         String result = interpretDepressionScore(totalScore);
 
         // Display the result using a Toast message
-        // Checking
         Toast.makeText(DepressionActivity.this, result, Toast.LENGTH_LONG).show();
+
+        // Save the test history to the database
+        DatabaseHelper dbHelper = new DatabaseHelper(this);
+
+        // Get the current date
+        String currentDate = java.text.DateFormat.getDateTimeInstance().format(new java.util.Date());
+
+        // Insert the test history
+        dbHelper.insertTestHistory("phq9", currentDate, result);
+    }
+
+    private int getScoreForQuestion(int selectedIndex) {
+        // For PHQ-9, the scoring is as follows:
+        // 0 = Not at all (Score: 0)
+        // 1 = Several days (Score: 1)
+        // 2 = More than half the days (Score: 2)
+        // 3 = Nearly every day (Score: 3)
+        return selectedIndex;
     }
 
     private String interpretDepressionScore(int totalScore) {
