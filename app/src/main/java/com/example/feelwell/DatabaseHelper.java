@@ -82,21 +82,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     // Insert predefined test names into the TESTS table
-    public void insertPredefinedTests() {
-        SQLiteDatabase db = this.getWritableDatabase();
 
-        // List of predefined test names
-        String[] testNames = {"dass21", "pss", "rses", "gad7", "phq9"};
-
-        // Insert each test name into the TESTS table
-        for (String testName : testNames) {
-            ContentValues values = new ContentValues();
-            values.put(COLUMN_TEST_NAME, testName);
-            db.insert(TABLE_TESTS, null, values);
-        }
-
-        db.close(); // Close the database connection
-    }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
@@ -107,7 +93,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL(CREATE_TASKS_TABLE);
         db.execSQL(CREATE_TASK_HISTORY_TABLE);
         // Insert predefined test names
-        insertPredefinedTests();
+        String[] testNames = {"dass21", "pss", "rses", "gad7", "phq9"};
+        for (String testName : testNames) {
+            ContentValues values = new ContentValues();
+            values.put(COLUMN_TEST_NAME, testName);
+            db.insert(TABLE_TESTS, null, values);
+        }
     }
 
     @Override
