@@ -17,11 +17,12 @@
         <item name="android:windowBackground">@color/white</item>
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowFullscreen">false</item>
-        <!-- Make the status bar transparent and allow the action bar to be visible -->
+        <!-- Transparent status bar -->
         <item name="android:windowTranslucentStatus">true</item>
         <item name="android:statusBarColor">@android:color/transparent</item>
-        <!-- Add this to ensure content is properly adjusted below the status bar -->
+        <!-- Ensure content is adjusted properly below the status bar -->
         <item name="android:fitsSystemWindows">true</item>
     </style>
+
 
 </resources>

@@ -1,9 +1,10 @@
-package com.example.feelwell; // Replace with your package name
+package com.example.feelwell;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
+import android.widget.RelativeLayout;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 public class FeelingPromptActivity extends AppCompatActivity {
@@ -13,65 +14,51 @@ public class FeelingPromptActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_feeling_prompt);
 
-        // Initialize buttons
-        Button btnDepressed = findViewById(R.id.btnDepressed);
-        Button btnAnxiety = findViewById(R.id.btnAnxiety);
-        Button btnStressed = findViewById(R.id.btnStressed);
-        Button btnLowSelfEsteem = findViewById(R.id.btnLowSelfEsteem);
-        Button btnAll = findViewById(R.id.btnAll);
+        // Find the RelativeLayouts (cards) by their IDs
+        RelativeLayout depressionCard = findViewById(R.id.depressionCard);
+        RelativeLayout anxietyCard = findViewById(R.id.anxietyCard);
+        RelativeLayout stressCard = findViewById(R.id.stressCard);
+        RelativeLayout selfEsteemCard = findViewById(R.id.selfEsteemCard);
 
+        // Set click listeners for each card
 
-        // Set click listeners
-        btnDepressed.setOnClickListener(new View.OnClickListener() {
+        depressionCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // Pass feeling to MainActivity
                 navigateToMainActivity("Depression");
             }
         });
 
-        btnAnxiety.setOnClickListener(new View.OnClickListener() {
+        anxietyCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // Pass feeling to MainActivity
                 navigateToMainActivity("Anxiety");
             }
         });
 
-        btnStressed.setOnClickListener(new View.OnClickListener() {
+        stressCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // Pass feeling to MainActivity
                 navigateToMainActivity("Stress");
             }
         });
 
-        btnLowSelfEsteem.setOnClickListener(new View.OnClickListener() {
+        selfEsteemCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // Pass feeling to MainActivity
                 navigateToMainActivity("Low Self-Esteem");
             }
         });
-
-        btnAll.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // If "All of the Above" is selected, pass Depression, Anxiety, and Stress
-                navigateToMainActivity("Depression, Anxiety, Stress");
-            }
-        });
-
-
     }
 
+    // Helper method to navigate to MainActivity with the feeling data
     private void navigateToMainActivity(String feeling) {
-        // Create an Intent to start the MainActivity
         Intent intent = new Intent(FeelingPromptActivity.this, MainActivity.class);
-
-        // Pass the feeling data to the MainActivity
-        intent.putExtra("FEELING", feeling);
-
-        // Start the MainActivity
+        intent.putExtra("FEELING", feeling);  // Pass the selected feeling
         startActivity(intent);
-
-        // Optional: Finish the FeelingPromptActivity so the user can't go back to it
-        finish();
     }
 }

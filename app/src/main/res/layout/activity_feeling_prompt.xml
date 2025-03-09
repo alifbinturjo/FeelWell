@@ -1,66 +1,166 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     android:padding="16dp"
-    android:background="@color/white">
+    android:background="#FFFFFF"
+    android:gravity="center">
 
-    <!-- Question -->
-    <TextView
-        android:id="@+id/feelingQuestion"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="How are you feeling now?"
-        android:textSize="24sp"
-        android:textColor="@color/black"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="50dp"/>
-
-    <!-- Buttons for feelings -->
-    <LinearLayout
+    <!-- Depression Card-like View -->
+    <RelativeLayout
+        android:id="@+id/depressionCard"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_below="@id/feelingQuestion"
-        android:layout_marginTop="30dp"
-        android:gravity="center">
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/card_background"
+        android:elevation="6dp"
+        android:padding="12dp"
+        android:clickable="true"
+        android:focusable="true">
 
-        <Button
-            android:id="@+id/btnDepressed"
-            android:layout_width="wrap_content"
+        <!-- LinearLayout for image on the left and text on the right -->
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Depression"
-            android:layout_marginBottom="16dp"/>
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
 
-        <Button
-            android:id="@+id/btnAnxiety"
-            android:layout_width="wrap_content"
+            <!-- Depression Image -->
+            <ImageView
+                android:id="@+id/depressionImage"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:src="@drawable/depression"
+                android:layout_marginEnd="12dp" />
+
+            <!-- Depression Text -->
+            <TextView
+                android:id="@+id/depressionText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="I am feeling depressed"
+                android:textSize="16sp"
+                android:textColor="#000000"
+                android:fontFamily="@font/playfairdisplay_regular"/>
+        </LinearLayout>
+    </RelativeLayout>
+
+    <!-- Anxiety Card-like View -->
+    <RelativeLayout
+        android:id="@+id/anxietyCard"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/card_background"
+        android:elevation="6dp"
+        android:padding="12dp"
+        android:clickable="true"
+        android:focusable="true">
+
+        <!-- LinearLayout for image on the left and text on the right -->
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Anxiety"
-            android:layout_marginBottom="16dp"/>
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
 
-        <Button
-            android:id="@+id/btnStressed"
-            android:layout_width="wrap_content"
+            <!-- Anxiety Image -->
+            <ImageView
+                android:id="@+id/anxietyImage"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:src="@drawable/anxiety"
+                android:layout_marginEnd="12dp" />
+
+            <!-- Anxiety Text -->
+            <TextView
+                android:id="@+id/anxietyText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="I am feeling anxious"
+                android:textSize="16sp"
+                android:textColor="#000000"
+                android:fontFamily="@font/playfairdisplay_regular"/>
+        </LinearLayout>
+    </RelativeLayout>
+
+    <!-- Stress Card-like View -->
+    <RelativeLayout
+        android:id="@+id/stressCard"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/card_background"
+        android:elevation="6dp"
+        android:padding="12dp"
+        android:clickable="true"
+        android:focusable="true">
+
+        <!-- LinearLayout for image on the left and text on the right -->
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Stress"
-            android:layout_marginBottom="16dp"/>
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
 
-        <Button
-            android:id="@+id/btnAll"
-            android:layout_width="wrap_content"
+            <!-- Stress Image -->
+            <ImageView
+                android:id="@+id/stressImage"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:src="@drawable/stress"
+                android:layout_marginEnd="12dp" />
+
+            <!-- Stress Text -->
+            <TextView
+                android:id="@+id/stressText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="I am feeling stressed"
+                android:textSize="16sp"
+                android:textColor="#000000"
+                android:fontFamily="@font/playfairdisplay_regular"/>
+        </LinearLayout>
+    </RelativeLayout>
+
+    <!-- Low Self-Esteem Card-like View -->
+    <RelativeLayout
+        android:id="@+id/selfEsteemCard"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/card_background"
+        android:elevation="6dp"
+        android:padding="12dp"
+        android:clickable="true"
+        android:focusable="true">
+
+        <!-- LinearLayout for image on the left and text on the right -->
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="All of the Above"
-            android:layout_marginBottom="16dp"/>
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
 
-        <Button
-            android:id="@+id/btnLowSelfEsteem"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Low Self-Esteem"
-            android:layout_marginBottom="16dp"/>
+            <!-- Low Self-Esteem Image -->
+            <ImageView
+                android:id="@+id/selfesteemImage"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:src="@drawable/selfesteem"
+                android:layout_marginEnd="12dp" />
 
+            <!-- Low Self-Esteem Text -->
+            <TextView
+                android:id="@+id/selfEsteemText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="I have low self-esteem"
+                android:textSize="16sp"
+                android:textColor="#000000"
+                android:fontFamily="@font/playfairdisplay_regular"/>
+        </LinearLayout>
+    </RelativeLayout>
 
-    </LinearLayout>
-
-</RelativeLayout>
+</LinearLayout>
