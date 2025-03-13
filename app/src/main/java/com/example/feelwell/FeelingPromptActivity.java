@@ -3,6 +3,7 @@ package com.example.feelwell;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -20,38 +21,26 @@ public class FeelingPromptActivity extends AppCompatActivity {
         RelativeLayout stressCard = findViewById(R.id.stressCard);
         RelativeLayout selfEsteemCard = findViewById(R.id.selfEsteemCard);
 
+        // Find the profile and task buttons
+        ImageButton profileButton = findViewById(R.id.profileButton);
+        ImageButton taskButton = findViewById(R.id.taskButton);
+
         // Set click listeners for each card
+        depressionCard.setOnClickListener(v -> navigateToMainActivity("Depression"));
+        anxietyCard.setOnClickListener(v -> navigateToMainActivity("Anxiety"));
+        stressCard.setOnClickListener(v -> navigateToMainActivity("Stress"));
+        selfEsteemCard.setOnClickListener(v -> navigateToMainActivity("Low Self-Esteem"));
 
-        depressionCard.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Pass feeling to MainActivity
-                navigateToMainActivity("Depression");
-            }
+        // Navigate to ProfileActivity when profile button is clicked
+        profileButton.setOnClickListener(v -> {
+            Intent intent = new Intent(FeelingPromptActivity.this, ProfileActivity.class);
+            startActivity(intent);
         });
 
-        anxietyCard.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Pass feeling to MainActivity
-                navigateToMainActivity("Anxiety");
-            }
-        });
-
-        stressCard.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Pass feeling to MainActivity
-                navigateToMainActivity("Stress");
-            }
-        });
-
-        selfEsteemCard.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Pass feeling to MainActivity
-                navigateToMainActivity("Low Self-Esteem");
-            }
+        // Navigate to TaskActivity when task button is clicked
+        taskButton.setOnClickListener(v -> {
+            Intent intent = new Intent(FeelingPromptActivity.this, TaskActivity.class);
+            startActivity(intent);
         });
     }
 
