@@ -1,4 +1,14 @@
 <shape xmlns:android="http://schemas.android.com/apk/res/android">
-    <solid android:color="#FFFFFF"/>
+    <!-- Gradient background for the card -->
+    <gradient
+        android:startColor="#FFFFFF"
+    android:centerColor="#F5F5F5"
+    android:endColor="#E0E0E0"
+    android:angle="45" />
     <corners android:radius="8dp"/>
+    <padding
+        android:left="8dp"
+        android:top="8dp"
+        android:right="8dp"
+        android:bottom="8dp"/>
 </shape>

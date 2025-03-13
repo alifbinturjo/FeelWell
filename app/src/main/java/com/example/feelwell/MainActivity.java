@@ -5,8 +5,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
+import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -19,11 +19,9 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = getIntent();
         String feeling = intent.getStringExtra("FEELING");
 
-        // Display the feeling in a TextView
-        TextView feelingTextView = findViewById(R.id.feelingTextView);
-        if (feeling != null) {
-            feelingTextView.setText("You're feeling: " + feeling);
-        }
+        // Set engaging text (this replaces the missing feelingTextView)
+        TextView engagingTextView = findViewById(R.id.engagingTextView);
+        engagingTextView.setText("No worries, we've got you covered!");
 
         // Button: Take an Assessment
         Button takeAssessmentButton = findViewById(R.id.takeAssessmentButton);
@@ -41,30 +39,28 @@ public class MainActivity extends AppCompatActivity {
                 } else if ("Low Self-Esteem".equals(feeling)) {
                     assessmentIntent = new Intent(MainActivity.this, LowSelfEsteemActivity.class);
                 } else {
-                    // For all other feelings (or if no feeling is provided), move to the general Assessment Activity
+                    // Default to general assessment activity
                     assessmentIntent = new Intent(MainActivity.this, AllOfTheAboveActivity.class);
                 }
                 startActivity(assessmentIntent);
             }
         });
 
-        // Button: Do Task
+        // Button: Do a Task
         Button doTaskButton = findViewById(R.id.doTaskButton);
         doTaskButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Navigate to TaskActivity
                 Intent taskIntent = new Intent(MainActivity.this, TaskActivity.class);
                 startActivity(taskIntent);
             }
         });
 
-        // ImageButton: Profile Button
+        // ImageButton: Profile
         ImageButton profileButton = findViewById(R.id.imageButton);
         profileButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Navigate to ProfileActivity
                 Intent profileIntent = new Intent(MainActivity.this, ProfileActivity.class);
                 startActivity(profileIntent);
             }
