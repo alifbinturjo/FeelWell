@@ -78,7 +78,7 @@ public class LowSelfEsteemActivity extends AppCompatActivity {
         Intent intent = new Intent(this, ResultActivity.class);
         intent.putExtra("TOTAL_SCORE", totalScore);
         intent.putExtra("USER_SCORE", userScore);
-        intent.putExtra("SELF_ESTEEM_LEVEL", getSelfEsteemLevel(userScore));
+        intent.putExtra("SEVERITY_LEVEL", getSelfEsteemLevel(userScore));
         startActivity(intent);
     }
 }
