@@ -11,5 +11,6 @@
     <color name="primary">#3498db</color>
     <color name="text_primary">#333333</color>
     <color name="background">#F5F5F5</color>
+    <color name="colorAccent">#FF4081</color>
 
 </resources>

@@ -1,0 +1,35 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp">
+
+    <!-- Vertical Line (Total Score) -->
+    <View
+        android:id="@+id/verticalLine"
+        android:layout_width="4dp"
+        android:layout_height="300dp"
+        android:background="#0000FF"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp"/>
+
+    <!-- User Score Indicator -->
+    <View
+        android:id="@+id/userScoreIndicator"
+        android:layout_width="20dp"
+        android:layout_height="4dp"
+        android:background="#FF0000"
+        android:layout_centerHorizontal="true"/>
+
+    <!-- Severity Level Text -->
+    <TextView
+        android:id="@+id/severityLevelText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        android:textColor="#000000"
+        android:text="Severity Level: "
+        android:layout_below="@id/verticalLine"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp"/>
+
+</RelativeLayout>

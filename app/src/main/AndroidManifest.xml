@@ -13,13 +13,17 @@
         android:theme="@style/Theme.FeelWell"
         tools:targetApi="31">
         <activity
+            android:name=".ResultActivity"
+            android:exported="false"
+            android:theme="@style/Theme.FeelWell.NoActionBar"/>
+        <activity
             android:name=".LowSelfEsteemActivity"
             android:exported="false"
-        android:theme="@style/Theme.FeelWell.NoActionBar" />
+            android:theme="@style/Theme.FeelWell.NoActionBar" />
         <activity
             android:name=".AllOfTheAboveActivity"
             android:exported="false"
-        android:theme="@style/Theme.FeelWell.NoActionBar" />
+            android:theme="@style/Theme.FeelWell.NoActionBar" />
         <activity
             android:name=".StressActivity"
             android:exported="false"

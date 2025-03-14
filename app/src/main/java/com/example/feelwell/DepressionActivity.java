@@ -1,104 +1,75 @@
 package com.example.feelwell;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class DepressionActivity extends AppCompatActivity {
 
-    // Declare RadioGroups for all 9 questions
-    private RadioGroup[] questionRadioGroups;
+    private int totalScore = 0;
+    private int userScore = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_depression);
 
-        // Initialize RadioGroups for all 9 questions
-        questionRadioGroups = new RadioGroup[]{
-                findViewById(R.id.question1RadioGroup),
-                findViewById(R.id.question2RadioGroup),
-                findViewById(R.id.question3RadioGroup),
-                findViewById(R.id.question4RadioGroup),
-                findViewById(R.id.question5RadioGroup),
-                findViewById(R.id.question6RadioGroup),
-                findViewById(R.id.question7RadioGroup),
-                findViewById(R.id.question8RadioGroup),
-                findViewById(R.id.question9RadioGroup)
-        };
+        Button endTestButton = findViewById(R.id.endTestButton);
 
-        // Initialize the calculate button
-        findViewById(R.id.calculateButton).setOnClickListener(new View.OnClickListener() {
+        endTestButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                calculateDepressionScore();
+                calculateScore();
+                openResultActivity();
             }
         });
     }
 
-    private void calculateDepressionScore() {
-        int totalScore = 0;
+    private void calculateScore() {
+        userScore = 0;
 
-        // Loop through all RadioGroups to get the selected option
-        for (int i = 0; i < questionRadioGroups.length; i++) {
-            RadioGroup radioGroup = questionRadioGroups[i];
-            int selectedId = radioGroup.getCheckedRadioButtonId();
+        userScore += getScoreFromGroup(R.id.radioGroupQ1);
+        userScore += getScoreFromGroup(R.id.radioGroupQ2);
+        userScore += getScoreFromGroup(R.id.radioGroupQ3);
+        userScore += getScoreFromGroup(R.id.radioGroupQ4);
+        userScore += getScoreFromGroup(R.id.radioGroupQ5);
+        userScore += getScoreFromGroup(R.id.radioGroupQ6);
+        userScore += getScoreFromGroup(R.id.radioGroupQ7);
+        userScore += getScoreFromGroup(R.id.radioGroupQ8);
+        userScore += getScoreFromGroup(R.id.radioGroupQ9);
 
-            if (selectedId == -1) {
-                // If no option is selected, show an error message
-                Toast.makeText(DepressionActivity.this, "Please answer all questions", Toast.LENGTH_SHORT).show();
-                return;
-            }
-
-            // Find the index of the selected RadioButton (0 = Not at all, 1 = Several days, etc.)
-            RadioButton selectedButton = findViewById(selectedId);
-            int index = radioGroup.indexOfChild(selectedButton);
-
-            // Calculate the score based on the index
-            totalScore += getScoreForQuestion(index);
-        }
-
-        // Interpret the total score
-        String result = interpretDepressionScore(totalScore);
-
-        // Display the result using a Toast message
-        Toast.makeText(DepressionActivity.this, result, Toast.LENGTH_LONG).show();
-
-        // Save the test history to the database
-        DatabaseHelper dbHelper = new DatabaseHelper(this);
-
-        // Get the current date
-        String currentDate = java.text.DateFormat.getDateTimeInstance().format(new java.util.Date());
-
-        // Insert the test history
-        dbHelper.insertTestHistory("phq9", currentDate, result);
+        totalScore = 27; // Maximum possible score for PHQ-9
     }
 
-    private int getScoreForQuestion(int selectedIndex) {
-        // For PHQ-9, the scoring is as follows:
-        // 0 = Not at all (Score: 0)
-        // 1 = Several days (Score: 1)
-        // 2 = More than half the days (Score: 2)
-        // 3 = Nearly every day (Score: 3)
-        return selectedIndex;
+    private int getScoreFromGroup(int radioGroupId) {
+        RadioGroup group = findViewById(radioGroupId);
+        int selectedId = group.getCheckedRadioButtonId();
+
+        if (selectedId == -1) {
+            return 0; // No selection
+        }
+
+        RadioButton selectedRadioButton = findViewById(selectedId);
+        return Integer.parseInt(selectedRadioButton.getTag().toString());
     }
 
-    private String interpretDepressionScore(int totalScore) {
-        if (totalScore >= 0 && totalScore <= 4) {
-            return "Depression Severity: Minimal depression\nTotal Score: " + totalScore;
-        } else if (totalScore >= 5 && totalScore <= 9) {
-            return "Depression Severity: Mild depression\nTotal Score: " + totalScore;
-        } else if (totalScore >= 10 && totalScore <= 14) {
-            return "Depression Severity: Moderate depression\nTotal Score: " + totalScore;
-        } else if (totalScore >= 15 && totalScore <= 19) {
-            return "Depression Severity: Moderately severe depression\nTotal Score: " + totalScore;
-        } else if (totalScore >= 20 && totalScore <= 27) {
-            return "Depression Severity: Severe depression\nTotal Score: " + totalScore;
-        } else {
-            return "Invalid score";
-        }
+    private String getSeverityLevel(int score) {
+        if (score >= 20) return "Severe Depression";
+        else if (score >= 15) return "Moderately Severe Depression";
+        else if (score >= 10) return "Moderate Depression";
+        else if (score >= 5) return "Mild Depression";
+        else return "Minimal or No Depression";
+    }
+
+    private void openResultActivity() {
+        Intent intent = new Intent(this, ResultActivity.class);
+        intent.putExtra("TOTAL_SCORE", totalScore);
+        intent.putExtra("USER_SCORE", userScore);
+        intent.putExtra("SEVERITY_LEVEL", getSeverityLevel(userScore));
+        startActivity(intent);
     }
 }
