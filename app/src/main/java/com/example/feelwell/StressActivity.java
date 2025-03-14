@@ -1,90 +1,75 @@
 package com.example.feelwell;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class StressActivity extends AppCompatActivity {
 
-    // Declare RadioGroups for all 10 questions
-    private RadioGroup[] stressQuestionRadioGroups;
+    private int totalScore = 0;
+    private int userScore = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_stress);
+        setContentView(R.layout.activity_stress); // Ensure this matches your XML layout file name
 
-        // Initialize RadioGroups for all 10 questions
-        stressQuestionRadioGroups = new RadioGroup[]{
-                findViewById(R.id.stressQuestion1RadioGroup),
-                findViewById(R.id.stressQuestion2RadioGroup),
-                findViewById(R.id.stressQuestion3RadioGroup),
-                findViewById(R.id.stressQuestion4RadioGroup),
-                findViewById(R.id.stressQuestion5RadioGroup),
-                findViewById(R.id.stressQuestion6RadioGroup),
-                findViewById(R.id.stressQuestion7RadioGroup),
-                findViewById(R.id.stressQuestion8RadioGroup),
-                findViewById(R.id.stressQuestion9RadioGroup),
-                findViewById(R.id.stressQuestion10RadioGroup)
-        };
+        Button calculateButton = findViewById(R.id.calculateButton);
 
-        // Initialize the calculate button
-        findViewById(R.id.stressCalculateButton).setOnClickListener(new View.OnClickListener() {
+        calculateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                calculateStressScore();
+                calculateScore();
+                openResultActivity();
             }
         });
     }
 
-    private void calculateStressScore() {
-        int totalScore = 0;
+    private void calculateScore() {
+        userScore = 0;
 
-        // Loop through all RadioGroups to get the selected option
-        for (RadioGroup radioGroup : stressQuestionRadioGroups) {
-            int selectedId = radioGroup.getCheckedRadioButtonId();
+        // Add scores from all questions
+        userScore += getScoreFromGroup(R.id.radioGroupQ1);
+        userScore += getScoreFromGroup(R.id.radioGroupQ2);
+        userScore += getScoreFromGroup(R.id.radioGroupQ3);
+        userScore += getScoreFromGroup(R.id.radioGroupQ4);
+        userScore += getScoreFromGroup(R.id.radioGroupQ5);
+        userScore += getScoreFromGroup(R.id.radioGroupQ6);
+        userScore += getScoreFromGroup(R.id.radioGroupQ7);
+        userScore += getScoreFromGroup(R.id.radioGroupQ8);
+        userScore += getScoreFromGroup(R.id.radioGroupQ9);
+        userScore += getScoreFromGroup(R.id.radioGroupQ10);
 
-            if (selectedId == -1) {
-                // If no option is selected, show an error message
-                Toast.makeText(StressActivity.this, "Please answer all questions", Toast.LENGTH_SHORT).show();
-                return;
-            }
-
-            // Find the index of the selected RadioButton (0 = Never, 1 = Almost Never, etc.)
-            RadioButton selectedButton = findViewById(selectedId);
-            int index = radioGroup.indexOfChild(selectedButton);
-
-            // Add the score based on the index
-            totalScore += index;
-        }
-
-        // Interpret the total score
-        String result = interpretStressScore(totalScore);
-
-        // Display the result using a Toast message
-        Toast.makeText(StressActivity.this, result, Toast.LENGTH_LONG).show();
-
-        DatabaseHelper dbHelper = new DatabaseHelper(this);
-
-        // Get the current date
-        String currentDate = java.text.DateFormat.getDateTimeInstance().format(new java.util.Date());
-
-        // Insert the test history
-        dbHelper.insertTestHistory("pss", currentDate, result);
+        totalScore = 40; // Maximum possible score for PSS (10 questions * 4 points each)
     }
 
-    private String interpretStressScore(int totalScore) {
-        if (totalScore >= 0 && totalScore <= 13) {
-            return "Stress Level: Low\nTotal Score: " + totalScore;
-        } else if (totalScore >= 14 && totalScore <= 26) {
-            return "Stress Level: Moderate\nTotal Score: " + totalScore;
-        } else if (totalScore >= 27 && totalScore <= 40) {
-            return "Stress Level: High\nTotal Score: " + totalScore;
-        } else {
-            return "Invalid score";
+    private int getScoreFromGroup(int radioGroupId) {
+        RadioGroup group = findViewById(radioGroupId);
+        int selectedId = group.getCheckedRadioButtonId();
+
+        if (selectedId == -1) {
+            return 0; // No selection
         }
+
+        RadioButton selectedRadioButton = findViewById(selectedId);
+        return Integer.parseInt(selectedRadioButton.getTag().toString());
+    }
+
+    private String getStressLevel(int score) {
+        if (score >= 27) return "High Stress";
+        else if (score >= 14) return "Moderate Stress";
+        else return "Low Stress";
+    }
+
+    private void openResultActivity() {
+        Intent intent = new Intent(this, ResultActivity.class);
+        intent.putExtra("TOTAL_SCORE", totalScore);
+        intent.putExtra("USER_SCORE", userScore);
+        intent.putExtra("SEVERITY_LEVEL", getStressLevel(userScore));
+        startActivity(intent);
     }
 }
