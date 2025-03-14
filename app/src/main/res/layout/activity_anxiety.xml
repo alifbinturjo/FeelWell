@@ -1,482 +1,491 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".AnxietyActivity">
+    android:padding="16dp">
 
-    <!-- Frozen Section: Instruction Text -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Over the last 2 weeks, how often have you been bothered by any of the following problems?"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        android:padding="16dp"
-        android:background="@color/teal_700"
-        android:textColor="@color/white"
-        android:gravity="center" />
-
-    <!-- Top Bar (Frozen) -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:background="@color/teal_700"
-        android:padding="8dp">
+        android:orientation="vertical"
+        android:padding="16dp">
 
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Not at all"
-            android:textColor="@color/white"
-            android:textSize="14sp"
-            android:gravity="center" />
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Several days"
-            android:textColor="@color/white"
-            android:textSize="14sp"
-            android:gravity="center" />
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="More than half the days"
-            android:textColor="@color/white"
-            android:textSize="14sp"
-            android:gravity="center" />
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Nearly every day"
-            android:textColor="@color/white"
-            android:textSize="14sp"
-            android:gravity="center" />
-    </LinearLayout>
-
-    <!-- Scrollable Content -->
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:fillViewport="true">
-
-        <LinearLayout
+        <!-- Group 1: Anxiety & Worry -->
+        <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="16dp">
+            android:layout_marginBottom="16dp"
+            android:elevation="2dp">
 
-            <!-- Question 1 -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:paddingBottom="8dp">
+                android:padding="16dp">
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="1. Feeling nervous, anxious, or on edge"
-                    android:textSize="16sp"
-                    android:textStyle="bold" />
+                    android:text="Let’s start by looking at how often you’ve felt nervous or anxious recently."
+                    android:textSize="18sp"
+                    android:textColor="#000000"
+                    android:paddingBottom="8dp"/>
 
-                <RadioGroup
-                    android:id="@+id/question1RadioGroup"
+                <!-- Q1: Feeling nervous, anxious, or on edge? -->
+                <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:text="1. Feeling nervous, anxious, or on edge?"
+                    android:textSize="16sp"
+                    android:textColor="#000000"
+                    android:paddingBottom="8dp"/>
+
+                <RadioGroup
+                    android:id="@+id/radioGroupQ1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="8dp">
 
                     <RadioButton
-                        android:id="@+id/q1_option1"
-                        android:layout_width="0dp"
+                        android:id="@+id/radioQ1_0"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text=""
-                        android:buttonTint="@color/teal_700" />
+                        android:text="Not at all"
+                        android:padding="8dp"
+                        android:textSize="16sp"
+                        android:layout_marginBottom="8dp"
+                        android:tag="0"/>
 
                     <RadioButton
-                        android:id="@+id/q1_option2"
-                        android:layout_width="0dp"
+                        android:id="@+id/radioQ1_1"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text=""
-                        android:buttonTint="@color/teal_700" />
+                        android:text="Several days"
+                        android:padding="8dp"
+                        android:textSize="16sp"
+                        android:layout_marginBottom="8dp"
+                        android:tag="1"/>
 
                     <RadioButton
-                        android:id="@+id/q1_option3"
-                        android:layout_width="0dp"
+                        android:id="@+id/radioQ1_2"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text=""
-                        android:buttonTint="@color/teal_700" />
+                        android:text="More than half the days"
+                        android:padding="8dp"
+                        android:textSize="16sp"
+                        android:layout_marginBottom="8dp"
+                        android:tag="2"/>
 
                     <RadioButton
-                        android:id="@+id/q1_option4"
-                        android:layout_width="0dp"
+                        android:id="@+id/radioQ1_3"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text=""
-                        android:buttonTint="@color/teal_700" />
+                        android:text="Nearly every day"
+                        android:padding="8dp"
+                        android:textSize="16sp"
+                        android:layout_marginBottom="8dp"
+                        android:tag="3"/>
+                </RadioGroup>
+
+                <!-- Q2: Not being able to stop or control worrying? -->
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="2. Not being able to stop or control worrying?"
+                    android:textSize="16sp"
+                    android:textColor="#000000"
+                    android:paddingBottom="8dp"/>
+
+                <RadioGroup
+                    android:id="@+id/radioGroupQ2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="8dp">
+
+                    <RadioButton
+                        android:id="@+id/radioQ2_0"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Not at all"
+                        android:padding="8dp"
+                        android:textSize="16sp"
+                        android:layout_marginBottom="8dp"
+                        android:tag="0"/>
+
+                    <RadioButton
+                        android:id="@+id/radioQ2_1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Several days"
+                        android:padding="8dp"
+                        android:textSize="16sp"
+                        android:layout_marginBottom="8dp"
+                        android:tag="1"/>
+
+                    <RadioButton
+                        android:id="@+id/radioQ2_2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="More than half the days"
+                        android:padding="8dp"
+                        android:textSize="16sp"
+                        android:layout_marginBottom="8dp"
+                        android:tag="2"/>
+
+                    <RadioButton
+                        android:id="@+id/radioQ2_3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Nearly every day"
+                        android:padding="8dp"
+                        android:textSize="16sp"
+                        android:layout_marginBottom="8dp"
+                        android:tag="3"/>
+                </RadioGroup>
+
+                <!-- Q3: Worrying too much about different things? -->
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="3. Worrying too much about different things?"
+                    android:textSize="16sp"
+                    android:textColor="#000000"
+                    android:paddingBottom="8dp"/>
+
+                <RadioGroup
+                    android:id="@+id/radioGroupQ3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="8dp">
+
+                    <RadioButton
+                        android:id="@+id/radioQ3_0"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Not at all"
+                        android:padding="8dp"
+                        android:textSize="16sp"
+                        android:layout_marginBottom="8dp"
+                        android:tag="0"/>
+
+                    <RadioButton
+                        android:id="@+id/radioQ3_1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Several days"
+                        android:padding="8dp"
+                        android:textSize="16sp"
+                        android:layout_marginBottom="8dp"
+                        android:tag="1"/>
+
+                    <RadioButton
+                        android:id="@+id/radioQ3_2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="More than half the days"
+                        android:padding="8dp"
+                        android:textSize="16sp"
+                        android:layout_marginBottom="8dp"
+                        android:tag="2"/>
+
+                    <RadioButton
+                        android:id="@+id/radioQ3_3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Nearly every day"
+                        android:padding="8dp"
+                        android:textSize="16sp"
+                        android:layout_marginBottom="8dp"
+                        android:tag="3"/>
                 </RadioGroup>
             </LinearLayout>
+        </androidx.cardview.widget.CardView>
 
-            <!-- Question 2 -->
+        <!-- Group 2: Restlessness & Relaxation -->
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:elevation="2dp">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:paddingBottom="8dp">
+                android:padding="16dp">
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="2. Not being able to stop or control worrying"
-                    android:textSize="16sp"
-                    android:textStyle="bold" />
+                    android:text="Next, let’s talk about how restless or irritable you’ve been feeling."
+                    android:textSize="18sp"
+                    android:textColor="#000000"
+                    android:paddingBottom="8dp"/>
 
-                <RadioGroup
-                    android:id="@+id/question2RadioGroup"
+                <!-- Q4: Trouble relaxing? -->
+                <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:text="4. Trouble relaxing?"
+                    android:textSize="16sp"
+                    android:textColor="#000000"
+                    android:paddingBottom="8dp"/>
+
+                <RadioGroup
+                    android:id="@+id/radioGroupQ4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="8dp">
 
                     <RadioButton
-                        android:id="@+id/q2_option1"
-                        android:layout_width="0dp"
+                        android:id="@+id/radioQ4_0"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text=""
-                        android:buttonTint="@color/teal_700" />
+                        android:text="Not at all"
+                        android:padding="8dp"
+                        android:textSize="16sp"
+                        android:layout_marginBottom="8dp"
+                        android:tag="0"/>
 
                     <RadioButton
-                        android:id="@+id/q2_option2"
-                        android:layout_width="0dp"
+                        android:id="@+id/radioQ4_1"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text=""
-                        android:buttonTint="@color/teal_700" />
+                        android:text="Several days"
+                        android:padding="8dp"
+                        android:textSize="16sp"
+                        android:layout_marginBottom="8dp"
+                        android:tag="1"/>
 
                     <RadioButton
-                        android:id="@+id/q2_option3"
-                        android:layout_width="0dp"
+                        android:id="@+id/radioQ4_2"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text=""
-                        android:buttonTint="@color/teal_700" />
+                        android:text="More than half the days"
+                        android:padding="8dp"
+                        android:textSize="16sp"
+                        android:layout_marginBottom="8dp"
+                        android:tag="2"/>
 
                     <RadioButton
-                        android:id="@+id/q2_option4"
-                        android:layout_width="0dp"
+                        android:id="@+id/radioQ4_3"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text=""
-                        android:buttonTint="@color/teal_700" />
+                        android:text="Nearly every day"
+                        android:padding="8dp"
+                        android:textSize="16sp"
+                        android:layout_marginBottom="8dp"
+                        android:tag="3"/>
+                </RadioGroup>
+
+                <!-- Q5: Being so restless that it is hard to sit still? -->
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="5. Being so restless that it is hard to sit still?"
+                    android:textSize="16sp"
+                    android:textColor="#000000"
+                    android:paddingBottom="8dp"/>
+
+                <RadioGroup
+                    android:id="@+id/radioGroupQ5"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="8dp">
+
+                    <RadioButton
+                        android:id="@+id/radioQ5_0"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Not at all"
+                        android:padding="8dp"
+                        android:textSize="16sp"
+                        android:layout_marginBottom="8dp"
+                        android:tag="0"/>
+
+                    <RadioButton
+                        android:id="@+id/radioQ5_1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Several days"
+                        android:padding="8dp"
+                        android:textSize="16sp"
+                        android:layout_marginBottom="8dp"
+                        android:tag="1"/>
+
+                    <RadioButton
+                        android:id="@+id/radioQ5_2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="More than half the days"
+                        android:padding="8dp"
+                        android:textSize="16sp"
+                        android:layout_marginBottom="8dp"
+                        android:tag="2"/>
+
+                    <RadioButton
+                        android:id="@+id/radioQ5_3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Nearly every day"
+                        android:padding="8dp"
+                        android:textSize="16sp"
+                        android:layout_marginBottom="8dp"
+                        android:tag="3"/>
+                </RadioGroup>
+
+                <!-- Q6: Becoming easily annoyed or irritable? -->
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="6. Becoming easily annoyed or irritable?"
+                    android:textSize="16sp"
+                    android:textColor="#000000"
+                    android:paddingBottom="8dp"/>
+
+                <RadioGroup
+                    android:id="@+id/radioGroupQ6"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="8dp">
+
+                    <RadioButton
+                        android:id="@+id/radioQ6_0"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Not at all"
+                        android:padding="8dp"
+                        android:textSize="16sp"
+                        android:layout_marginBottom="8dp"
+                        android:tag="0"/>
+
+                    <RadioButton
+                        android:id="@+id/radioQ6_1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Several days"
+                        android:padding="8dp"
+                        android:textSize="16sp"
+                        android:layout_marginBottom="8dp"
+                        android:tag="1"/>
+
+                    <RadioButton
+                        android:id="@+id/radioQ6_2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="More than half the days"
+                        android:padding="8dp"
+                        android:textSize="16sp"
+                        android:layout_marginBottom="8dp"
+                        android:tag="2"/>
+
+                    <RadioButton
+                        android:id="@+id/radioQ6_3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Nearly every day"
+                        android:padding="8dp"
+                        android:textSize="16sp"
+                        android:layout_marginBottom="8dp"
+                        android:tag="3"/>
                 </RadioGroup>
             </LinearLayout>
+        </androidx.cardview.widget.CardView>
 
-            <!-- Question 3 -->
+        <!-- Group 3: Physical Symptoms & Health -->
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:elevation="2dp">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:paddingBottom="8dp">
+                android:padding="16dp">
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="3. Worrying too much about different things"
-                    android:textSize="16sp"
-                    android:textStyle="bold" />
+                    android:text="Finally, let’s check if you’ve been feeling physically impacted by anxiety."
+                    android:textSize="18sp"
+                    android:textColor="#000000"
+                    android:paddingBottom="8dp"/>
 
-                <RadioGroup
-                    android:id="@+id/question3RadioGroup"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <RadioButton
-                        android:id="@+id/q3_option1"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text=""
-                        android:buttonTint="@color/teal_700" />
-
-                    <RadioButton
-                        android:id="@+id/q3_option2"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text=""
-                        android:buttonTint="@color/teal_700" />
-
-                    <RadioButton
-                        android:id="@+id/q3_option3"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text=""
-                        android:buttonTint="@color/teal_700" />
-
-                    <RadioButton
-                        android:id="@+id/q3_option4"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text=""
-                        android:buttonTint="@color/teal_700" />
-                </RadioGroup>
-            </LinearLayout>
-
-            <!-- Question 4 -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:paddingBottom="8dp">
-
+                <!-- Q7: Feeling afraid as if something awful might happen? -->
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="4. Trouble relaxing"
+                    android:text="7. Feeling afraid as if something awful might happen?"
                     android:textSize="16sp"
-                    android:textStyle="bold" />
+                    android:textColor="#000000"
+                    android:paddingBottom="8dp"/>
 
                 <RadioGroup
-                    android:id="@+id/question4RadioGroup"
+                    android:id="@+id/radioGroupQ7"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:orientation="vertical"
+                    android:padding="8dp">
 
                     <RadioButton
-                        android:id="@+id/q4_option1"
-                        android:layout_width="0dp"
+                        android:id="@+id/radioQ7_0"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text=""
-                        android:buttonTint="@color/teal_700" />
+                        android:text="Not at all"
+                        android:padding="8dp"
+                        android:textSize="16sp"
+                        android:layout_marginBottom="8dp"
+                        android:tag="0"/>
 
                     <RadioButton
-                        android:id="@+id/q4_option2"
-                        android:layout_width="0dp"
+                        android:id="@+id/radioQ7_1"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text=""
-                        android:buttonTint="@color/teal_700" />
+                        android:text="Several days"
+                        android:padding="8dp"
+                        android:textSize="16sp"
+                        android:layout_marginBottom="8dp"
+                        android:tag="1"/>
 
                     <RadioButton
-                        android:id="@+id/q4_option3"
-                        android:layout_width="0dp"
+                        android:id="@+id/radioQ7_2"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text=""
-                        android:buttonTint="@color/teal_700" />
+                        android:text="More than half the days"
+                        android:padding="8dp"
+                        android:textSize="16sp"
+                        android:layout_marginBottom="8dp"
+                        android:tag="2"/>
 
                     <RadioButton
-                        android:id="@+id/q4_option4"
-                        android:layout_width="0dp"
+                        android:id="@+id/radioQ7_3"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text=""
-                        android:buttonTint="@color/teal_700" />
+                        android:text="Nearly every day"
+                        android:padding="8dp"
+                        android:textSize="16sp"
+                        android:layout_marginBottom="8dp"
+                        android:tag="3"/>
                 </RadioGroup>
             </LinearLayout>
+        </androidx.cardview.widget.CardView>
 
-            <!-- Question 5 -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:paddingBottom="8dp">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="5. Being so restless that it is hard to sit still"
-                    android:textSize="16sp"
-                    android:textStyle="bold" />
-
-                <RadioGroup
-                    android:id="@+id/question5RadioGroup"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <RadioButton
-                        android:id="@+id/q5_option1"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text=""
-                        android:buttonTint="@color/teal_700" />
-
-                    <RadioButton
-                        android:id="@+id/q5_option2"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text=""
-                        android:buttonTint="@color/teal_700" />
-
-                    <RadioButton
-                        android:id="@+id/q5_option3"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text=""
-                        android:buttonTint="@color/teal_700" />
-
-                    <RadioButton
-                        android:id="@+id/q5_option4"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text=""
-                        android:buttonTint="@color/teal_700" />
-                </RadioGroup>
-            </LinearLayout>
-
-            <!-- Question 6 -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:paddingBottom="8dp">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="6. Becoming easily annoyed or irritable"
-                    android:textSize="16sp"
-                    android:textStyle="bold" />
-
-                <RadioGroup
-                    android:id="@+id/question6RadioGroup"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <RadioButton
-                        android:id="@+id/q6_option1"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text=""
-                        android:buttonTint="@color/teal_700" />
-
-                    <RadioButton
-                        android:id="@+id/q6_option2"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text=""
-                        android:buttonTint="@color/teal_700" />
-
-                    <RadioButton
-                        android:id="@+id/q6_option3"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text=""
-                        android:buttonTint="@color/teal_700" />
-
-                    <RadioButton
-                        android:id="@+id/q6_option4"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text=""
-                        android:buttonTint="@color/teal_700" />
-                </RadioGroup>
-            </LinearLayout>
-
-            <!-- Question 7 -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:paddingBottom="8dp">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="7. Feeling afraid, as if something awful might happen"
-                    android:textSize="16sp"
-                    android:textStyle="bold" />
-
-                <RadioGroup
-                    android:id="@+id/question7RadioGroup"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <RadioButton
-                        android:id="@+id/q7_option1"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text=""
-                        android:buttonTint="@color/teal_700" />
-
-                    <RadioButton
-                        android:id="@+id/q7_option2"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text=""
-                        android:buttonTint="@color/teal_700" />
-
-                    <RadioButton
-                        android:id="@+id/q7_option3"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text=""
-                        android:buttonTint="@color/teal_700" />
-
-                    <RadioButton
-                        android:id="@+id/q7_option4"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text=""
-                        android:buttonTint="@color/teal_700" />
-                </RadioGroup>
-            </LinearLayout>
-
-            <!-- Add this inside the ScrollView, below the last question -->
-            <Button
-                android:id="@+id/calculateButton"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Calculate Score"
-                android:backgroundTint="@color/teal_700"
-                android:textColor="@color/white"
-                android:padding="16dp"
-                android:layout_marginTop="16dp" />
-
-            <TextView
-                android:id="@+id/resultTextView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Result will appear here"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:gravity="center"
-                android:padding="16dp"
-                android:layout_marginTop="16dp"
-                android:visibility="gone" />
-        </LinearLayout>
-    </ScrollView>
-</LinearLayout>
+        <!-- Button to calculate the score -->
+        <Button
+            android:id="@+id/calculateButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="END THE TEST"
+            android:textSize="16sp"
+            android:textColor="#ffffff"
+            android:background="@color/colorAccent"/>
+    </LinearLayout>
+</ScrollView>
