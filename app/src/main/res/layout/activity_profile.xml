@@ -2,38 +2,77 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:padding="16dp"
-    android:background="@color/white">
+    android:background="@drawable/background_gradient">
 
-    <!-- Profile Info Box -->
-    <LinearLayout
+    <!-- CardView for Profile Details -->
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:background="@color/teal_200"
-        android:padding="16dp"
-        android:gravity="center">
+        android:elevation="4dp"
+        app:cardCornerRadius="10dp"
+        app:cardBackgroundColor="@android:color/transparent"
+        >
 
-        <!-- Name (Big Font) -->
-        <TextView
-            android:id="@+id/tvUserName"
-            android:layout_width="wrap_content"
+        <RelativeLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="22sp"
-            android:textColor="@color/white"
-            android:textStyle="bold"
-            android:gravity="center"/>
+            android:padding="16dp">
 
-        <!-- Gender and Age (Smaller Font) -->
-        <TextView
-            android:id="@+id/tvUserDetails"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="18sp"
-            android:textColor="@color/white"
-            android:gravity="center"
-            android:paddingTop="4dp"/>
-    </LinearLayout>
+            <!-- Person Icon -->
+            <ImageView
+                android:id="@+id/personIcon"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:src="@drawable/ic_profile"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:contentDescription="Person Icon" />
+
+            <!-- Name, Gender, and Age -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_toEndOf="@id/personIcon"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="16dp">
+
+                <!-- Name -->
+                <TextView
+                    android:id="@+id/nameText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Name"
+                    android:textSize="18sp"
+                    android:textColor="#000000"
+                    android:textStyle="bold" />
+
+                <!-- Gender -->
+                <TextView
+                    android:id="@+id/genderText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Gender"
+                    android:textSize="16sp"
+                    android:textColor="#000000"
+                    android:layout_marginTop="4dp" />
+
+                <!-- Age -->
+                <TextView
+                    android:id="@+id/ageText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Age"
+                    android:textSize="16sp"
+                    android:textColor="#000000"
+                    android:layout_marginTop="4dp" />
+            </LinearLayout>
+        </RelativeLayout>
+    </androidx.cardview.widget.CardView>
+
+    <!-- Add other UI elements below the card if needed -->
 
 </LinearLayout>

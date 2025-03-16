@@ -3,14 +3,11 @@ package com.example.feelwell;
 import android.os.Bundle;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
-import java.time.LocalDate;
-import java.time.Period;
-import java.time.format.DateTimeFormatter;
 
 public class ProfileActivity extends AppCompatActivity {
 
+    private TextView nameText, genderText, ageText;
     private DatabaseHelper databaseHelper;
-    private TextView tvUserName, tvUserDetails;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,49 +15,71 @@ public class ProfileActivity extends AppCompatActivity {
         setContentView(R.layout.activity_profile);
 
         // Initialize views
-        tvUserName = findViewById(R.id.tvUserName);
-        tvUserDetails = findViewById(R.id.tvUserDetails);
+        nameText = findViewById(R.id.nameText);
+        genderText = findViewById(R.id.genderText);
+        ageText = findViewById(R.id.ageText);
 
         // Initialize database helper
         databaseHelper = new DatabaseHelper(this);
 
-        // Display user data
-        displayUserData();
+        // Fetch and display user details
+        displayUserDetails();
     }
 
-    private void displayUserData() {
-        if (databaseHelper.isUserExists()) {
-            String name = databaseHelper.getUserName();
-            tvUserName.setText(name);
+    private void displayUserDetails() {
+        // Fetch user details from the database
+        String name = databaseHelper.getUserName();
+        String gender = databaseHelper.getUserGender();
+        String birthDate = databaseHelper.getUserBirthDate();
 
-            // Retrieve Gender and Birthdate
-            String gender = databaseHelper.getUserGender();
-            String birthDate = databaseHelper.getUserBirthDate();
-            String ageText = "";
+        // Calculate age from birth date
+        int age = calculateAge(birthDate);
 
-            if (birthDate != null && !birthDate.isEmpty()) {
-                int age = calculateAge(birthDate);
-                ageText = "Age: " + (age > 0 ? age : "N/A");  // Avoid showing 0
-            }
-
-            // Set gender and age together
-            tvUserDetails.setText(gender + "  |  " + ageText);
-        }
+        // Display the details
+        nameText.setText(name);
+        genderText.setText("Gender: " + gender);
+        ageText.setText("Age: " + age);
     }
 
     private int calculateAge(String birthDate) {
-        try {
-            // Debug: Print birthDate to check its format
-            System.out.println("Birthdate from DB: " + birthDate);
+        // Check if birthDate is null or empty
+        if (birthDate == null || birthDate.isEmpty()) {
 
-            // Ensure the date format matches what’s stored in the DB
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-            LocalDate dob = LocalDate.parse(birthDate, formatter);
-            return Period.between(dob, LocalDate.now()).getYears();
-        } catch (Exception e) {
-            e.printStackTrace();
-            return 0; // Return 0 if there's an error
+            return 0;
         }
+
+        // Split the birth date into day, month, and year using "/"
+        String[] parts = birthDate.split("/");
+        if (parts.length < 3) {
+
+            return 0;
+        }
+
+        // Parse day, month, and year
+        int birthDay = Integer.parseInt(parts[0]);
+        int birthMonth = Integer.parseInt(parts[1]);
+        int birthYear = Integer.parseInt(parts[2]);
+
+        // Log the parsed parts for debugging
+
+
+        // Calculate age
+        int age = getAge(birthYear, birthMonth, birthDay);
+
+        return age;
     }
 
+    private static int getAge(int birthYear, int birthMonth, int birthDay) {
+        java.util.Calendar today = java.util.Calendar.getInstance();
+        int currentYear = today.get(java.util.Calendar.YEAR);
+        int currentMonth = today.get(java.util.Calendar.MONTH) + 1; // Month is 0-based
+        int currentDay = today.get(java.util.Calendar.DAY_OF_MONTH);
+
+        // Calculate age
+        int age = currentYear - birthYear;
+        if (currentMonth < birthMonth || (currentMonth == birthMonth && currentDay < birthDay)) {
+            age--; // Adjust if birthday hasn't occurred yet this year
+        }
+        return age;
+    }
 }
