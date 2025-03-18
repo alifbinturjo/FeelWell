@@ -9,15 +9,15 @@
         android:layout_width="300dp"
         android:layout_height="20dp"
         android:background="@drawable/gradient_bar"
-    android:layout_centerHorizontal="true"
-    android:layout_marginTop="16dp"/>
+        android:layout_centerHorizontal="true"
+        android:layout_centerInParent="true"/> <!-- Moves it to the center -->
 
     <!-- User Score Indicator -->
     <View
         android:id="@+id/userScoreIndicator"
         android:layout_width="4dp"
         android:layout_height="30dp"
-        android:background="#FF0000"
+        android:background="#000000"
         android:layout_alignTop="@id/horizontalBar"
         android:layout_alignBottom="@id/horizontalBar"/>
 
@@ -29,9 +29,9 @@
         android:text="Good"
         android:textSize="14sp"
         android:textColor="#000000"
-        android:layout_above="@id/horizontalBar"
+        android:layout_below="@id/horizontalBar"
         android:layout_alignStart="@id/horizontalBar"
-        android:layout_marginBottom="8dp"/>
+        android:layout_marginTop="8dp"/> <!-- Moves it below the bar -->
 
     <!-- Bad Level Text -->
     <TextView
@@ -41,9 +41,9 @@
         android:text="Bad"
         android:textSize="14sp"
         android:textColor="#000000"
-        android:layout_above="@id/horizontalBar"
+        android:layout_below="@id/horizontalBar"
         android:layout_alignEnd="@id/horizontalBar"
-        android:layout_marginBottom="8dp"/>
+        android:layout_marginTop="8dp"/> <!-- Moves it below the bar -->
 
     <!-- Severity Level Text -->
     <TextView
@@ -53,8 +53,8 @@
         android:textSize="18sp"
         android:textColor="#000000"
         android:text="Severity Level: "
-        android:layout_below="@id/horizontalBar"
+        android:layout_below="@id/goodLevelText"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="16dp"/>
+        android:layout_marginTop="16dp"/> <!-- Moves it below "Good" and "Bad" -->
 
 </RelativeLayout>

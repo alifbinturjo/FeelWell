@@ -8,15 +8,22 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+
 public class DepressionActivity extends AppCompatActivity {
 
     private int totalScore = 0;
     private int userScore = 0;
+    private DatabaseHelper dbHelper; // Database helper instance
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_depression);
+
+        dbHelper = new DatabaseHelper(this); // Initialize database helper
 
         Button endTestButton = findViewById(R.id.endTestButton);
 
@@ -24,6 +31,7 @@ public class DepressionActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 calculateScore();
+                saveTestHistory(); // Insert the result into the database
                 openResultActivity();
             }
         });
@@ -65,11 +73,19 @@ public class DepressionActivity extends AppCompatActivity {
         else return "Minimal or No Depression";
     }
 
+    private void saveTestHistory() {
+        String testName = "phq9";
+        String currentDate = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
+
+        dbHelper.insertTestHistory(testName, currentDate, userScore);
+    }
+
     private void openResultActivity() {
         Intent intent = new Intent(this, ResultActivity.class);
         intent.putExtra("TOTAL_SCORE", totalScore);
         intent.putExtra("USER_SCORE", userScore);
         intent.putExtra("SEVERITY_LEVEL", getSeverityLevel(userScore));
         startActivity(intent);
+        finish();
     }
 }

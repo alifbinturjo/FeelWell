@@ -32,17 +32,19 @@ public class MainActivity extends AppCompatActivity {
                 Intent assessmentIntent;
                 if ("Depression".equals(feeling)) {
                     assessmentIntent = new Intent(MainActivity.this, DepressionActivity.class);
+
                 } else if ("Stress".equals(feeling)) {
                     assessmentIntent = new Intent(MainActivity.this, StressActivity.class);
+
                 } else if ("Anxiety".equals(feeling)) {
                     assessmentIntent = new Intent(MainActivity.this, AnxietyActivity.class);
-                } else if ("Low Self-Esteem".equals(feeling)) {
+
+                } else  {
                     assessmentIntent = new Intent(MainActivity.this, LowSelfEsteemActivity.class);
-                } else {
-                    // Default to general assessment activity
-                    assessmentIntent = new Intent(MainActivity.this, AllOfTheAboveActivity.class);
+
                 }
                 startActivity(assessmentIntent);
+                finish();
             }
         });
 
@@ -51,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
         doTaskButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent taskIntent = new Intent(MainActivity.this, TaskActivity.class);
+                Intent taskIntent = new Intent(MainActivity.this, DefaultTaskActivity.class);
                 startActivity(taskIntent);
             }
         });

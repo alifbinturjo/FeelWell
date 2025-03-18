@@ -33,7 +33,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     private static final String COLUMN_TEST_HISTORY_TEST_NAME = "test_name";
     private static final String COLUMN_TEST_HISTORY_DATE = "date";
-    private static final String COLUMN_TEST_HISTORY_RESULT = "result";
+    private static final String COLUMN_TEST_HISTORY_RESULT = "score";
 
     private static final String COLUMN_TASK_NAME = "task";
     private static final String COLUMN_TASK_TEST_NAME = "test_name";
@@ -60,7 +60,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String CREATE_TEST_HISTORY_TABLE = "CREATE TABLE " + TABLE_TEST_HISTORY + "("
             + COLUMN_TEST_HISTORY_TEST_NAME + " TEXT, "
             + COLUMN_TEST_HISTORY_DATE + " DATE, "
-            + COLUMN_TEST_HISTORY_RESULT + " TEXT, "
+            + COLUMN_TEST_HISTORY_RESULT + " INTEGER, " // Changed to INTEGER
             + "PRIMARY KEY (" + COLUMN_TEST_HISTORY_TEST_NAME + ", " + COLUMN_TEST_HISTORY_DATE + "), "
             + "FOREIGN KEY (" + COLUMN_TEST_HISTORY_TEST_NAME + ") REFERENCES " + TABLE_TESTS + "(" + COLUMN_TEST_NAME + ") ON DELETE CASCADE);";
 
@@ -93,7 +93,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL(CREATE_TASKS_TABLE);
         db.execSQL(CREATE_TASK_HISTORY_TABLE);
         // Insert predefined test names
-        String[] testNames = {"dass21", "pss", "rses", "gad7", "phq9"};
+        String[] testNames = {"pss", "rse", "gad7", "phq9"};
         for (String testName : testNames) {
             ContentValues values = new ContentValues();
             values.put(COLUMN_TEST_NAME, testName);
@@ -174,15 +174,28 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     // Insert test history into the TEST_HISTORY table
-    public void insertTestHistory(String testName, String date, String result) {
+    public void insertTestHistory(String testName, String date, int score) {
         SQLiteDatabase db = this.getWritableDatabase();
-
         ContentValues values = new ContentValues();
         values.put(COLUMN_TEST_HISTORY_TEST_NAME, testName);
         values.put(COLUMN_TEST_HISTORY_DATE, date);
-        values.put(COLUMN_TEST_HISTORY_RESULT, result);
-
+        values.put(COLUMN_TEST_HISTORY_RESULT, score); // Storing score as integer
         db.insert(TABLE_TEST_HISTORY, null, values);
-        db.close(); // Close the database connection
+        db.close();
     }
+
+    public String getLastTestDate(String testName) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT MAX(date) FROM test_history WHERE test_name = ?", new String[]{testName});
+
+        if (cursor.moveToFirst() && !cursor.isNull(0)) {
+            String lastTestDate = cursor.getString(0);
+            cursor.close();
+            return lastTestDate; // Returns the last test date
+        }
+
+        cursor.close();
+        return null; // No previous test found
+    }
+
 }
