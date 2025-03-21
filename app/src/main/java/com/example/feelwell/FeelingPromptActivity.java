@@ -88,8 +88,19 @@ public class FeelingPromptActivity extends AppCompatActivity {
                 long diffInMillis = today.getTime() - lastDate.getTime();
                 long diffInDays = diffInMillis / (1000 * 60 * 60 * 24);
 
-                if (diffInDays < 30) {
-                    long remainingDays = 30 - diffInDays;
+                int lockPeriodDays;
+                if ("Depression".equals(feeling) || "Anxiety".equals(feeling)) {
+                    lockPeriodDays = 14; // Lock for 14 days for Depression and Anxiety
+                } else if ("Stress".equals(feeling)) {
+                    lockPeriodDays = 30; // Lock for 30 days for Stress
+                } else {
+                    // No lock for other feelings (e.g., Low Self-Esteem)
+                    navigateToMainActivity(feeling);
+                    return;
+                }
+
+                if (diffInDays < lockPeriodDays) {
+                    long remainingDays = lockPeriodDays - diffInDays;
                     Toast.makeText(this, "Your assessment will be unlocked in " + remainingDays + " days.", Toast.LENGTH_LONG).show();
                 } else {
                     navigateToMainActivity(feeling);
