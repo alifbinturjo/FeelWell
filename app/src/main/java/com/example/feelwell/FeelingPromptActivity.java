@@ -93,7 +93,10 @@ public class FeelingPromptActivity extends AppCompatActivity {
                     lockPeriodDays = 14; // Lock for 14 days for Depression and Anxiety
                 } else if ("Stress".equals(feeling)) {
                     lockPeriodDays = 30; // Lock for 30 days for Stress
-                } else {
+                } else if ("Low Self-Esteem".equals(feeling)) {
+                lockPeriodDays = 1; // Lock for 30 days for Stress
+                }
+                else {
                     // No lock for other feelings (e.g., Low Self-Esteem)
                     navigateToMainActivity(feeling);
                     return;

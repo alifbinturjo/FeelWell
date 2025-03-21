@@ -5,8 +5,8 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-
-import androidx.annotation.Nullable;
+import java.util.ArrayList;
+import java.util.List;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
@@ -196,6 +196,43 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         cursor.close();
         return null; // No previous test found
+    }
+
+    public List<TestHistory> getTestHistory(String testName, int limit) {
+        List<TestHistory> testHistories = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT " + COLUMN_TEST_HISTORY_DATE + ", " + COLUMN_TEST_HISTORY_RESULT +
+                " FROM " + TABLE_TEST_HISTORY +
+                " WHERE " + COLUMN_TEST_HISTORY_TEST_NAME + " = ?" +
+                " ORDER BY " + COLUMN_TEST_HISTORY_DATE + " DESC LIMIT ?", new String[]{testName, String.valueOf(limit)});
+
+        if (cursor.moveToFirst()) {
+            do {
+                String date = cursor.getString(0);
+                int score = cursor.getInt(1);
+                int totalScore = getTotalScoreForTest(testName); // Implement this method based on your test scoring logic
+                testHistories.add(new TestHistory(date, score, totalScore));
+            } while (cursor.moveToNext());
+        }
+
+        cursor.close();
+        return testHistories;
+    }
+
+    private int getTotalScoreForTest(String testName) {
+        // Implement logic to return the total possible score for the test
+        switch (testName) {
+            case "phq9":
+                return 27; // Example total score for PHQ-9
+            case "gad7":
+                return 21; // Example total score for GAD-7
+            case "rse":
+                return 30; // Example total score for RSE
+            case "pss":
+                return 40; // Example total score for PSS
+            default:
+                return 0;
+        }
     }
 
 }

@@ -1,8 +1,16 @@
 package com.example.feelwell;
 
+import android.graphics.Color;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewTreeObserver;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
+import java.util.List;
 
 public class ProfileActivity extends AppCompatActivity {
 
@@ -24,6 +32,9 @@ public class ProfileActivity extends AppCompatActivity {
 
         // Fetch and display user details
         displayUserDetails();
+
+        // Fetch and display test history
+        displayTestHistory();
     }
 
     private void displayUserDetails() {
@@ -42,44 +53,82 @@ public class ProfileActivity extends AppCompatActivity {
     }
 
     private int calculateAge(String birthDate) {
-        // Check if birthDate is null or empty
         if (birthDate == null || birthDate.isEmpty()) {
-
             return 0;
         }
 
-        // Split the birth date into day, month, and year using "/"
         String[] parts = birthDate.split("/");
         if (parts.length < 3) {
-
             return 0;
         }
 
-        // Parse day, month, and year
         int birthDay = Integer.parseInt(parts[0]);
         int birthMonth = Integer.parseInt(parts[1]);
         int birthYear = Integer.parseInt(parts[2]);
 
-        // Log the parsed parts for debugging
-
-
-        // Calculate age
-        int age = getAge(birthYear, birthMonth, birthDay);
-
-        return age;
+        return getAge(birthYear, birthMonth, birthDay);
     }
 
     private static int getAge(int birthYear, int birthMonth, int birthDay) {
         java.util.Calendar today = java.util.Calendar.getInstance();
         int currentYear = today.get(java.util.Calendar.YEAR);
-        int currentMonth = today.get(java.util.Calendar.MONTH) + 1; // Month is 0-based
+        int currentMonth = today.get(java.util.Calendar.MONTH) + 1;
         int currentDay = today.get(java.util.Calendar.DAY_OF_MONTH);
 
-        // Calculate age
         int age = currentYear - birthYear;
         if (currentMonth < birthMonth || (currentMonth == birthMonth && currentDay < birthDay)) {
-            age--; // Adjust if birthday hasn't occurred yet this year
+            age--;
         }
         return age;
+    }
+
+    private void displayTestHistory() {
+        // Fetch test history for each test type
+        displayTestHistoryForType("phq9", findViewById(R.id.depressionCard));
+        displayTestHistoryForType("gad7", findViewById(R.id.anxietyCard));
+        displayTestHistoryForType("rse", findViewById(R.id.selfEsteemCard));
+        displayTestHistoryForType("pss", findViewById(R.id.stressCard));
+    }
+
+    private void displayTestHistoryForType(String testName, CardView cardView) {
+        LinearLayout cardLayout = (LinearLayout) cardView.getChildAt(0);
+        List<TestHistory> testHistories = databaseHelper.getTestHistory(testName, 3);
+
+        for (int i = 0; i < testHistories.size(); i++) {
+            TestHistory history = testHistories.get(i);
+            View historyItem = LayoutInflater.from(this).inflate(R.layout.item_test_history, cardLayout, false);
+
+            TextView dateText = historyItem.findViewById(R.id.dateText);
+            RelativeLayout goodBadContainer = historyItem.findViewById(R.id.goodBadContainer);
+            View horizontalBar = historyItem.findViewById(R.id.horizontalBar);
+            View userScoreIndicator = historyItem.findViewById(R.id.userScoreIndicator);
+
+            // Set date
+            dateText.setText(history.getDate());
+
+            // Show "Good" and "Bad" text only for the first bar
+            if (i == 0) {
+                goodBadContainer.setVisibility(View.VISIBLE);
+            }
+
+            // Plot the user's score on the horizontal bar
+            plotUserScore(history.getTotalScore(), history.getScore(), horizontalBar, userScoreIndicator);
+
+            cardLayout.addView(historyItem);
+        }
+    }
+
+    private void plotUserScore(int totalScore, int userScore, View horizontalBar, View userScoreIndicator) {
+        horizontalBar.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                horizontalBar.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+
+                int horizontalBarWidth = horizontalBar.getWidth();
+                float userScorePosition = ((float) userScore / totalScore) * horizontalBarWidth;
+                userScoreIndicator.setX(horizontalBar.getX() + userScorePosition);
+                userScoreIndicator.setBackgroundColor(Color.BLACK);
+            }
+        });
     }
 }
