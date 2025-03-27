@@ -41,18 +41,18 @@ public class LowSelfEsteemActivity extends AppCompatActivity {
         userScore = 0;
 
         // Reverse scoring for negatively worded items
-        userScore += getScoreForItem(R.id.radioGroupQ1, false); // Item 1: Reverse score
+        userScore += getScoreForItem(R.id.radioGroupQ1, true); // Item 1: Reverse score
         userScore += getScoreForItem(R.id.radioGroupQ2, true);  // Item 2: Normal score
-        userScore += getScoreForItem(R.id.radioGroupQ3, false); // Item 3: Reverse score
-        userScore += getScoreForItem(R.id.radioGroupQ4, false); // Item 4: Reverse score
+        userScore += getScoreForItem(R.id.radioGroupQ3, true); // Item 3: Reverse score
+        userScore += getScoreForItem(R.id.radioGroupQ4, true); // Item 4: Reverse score
         userScore += getScoreForItem(R.id.radioGroupQ5, true);  // Item 5: Normal score
         userScore += getScoreForItem(R.id.radioGroupQ6, true);  // Item 6: Normal score
-        userScore += getScoreForItem(R.id.radioGroupQ7, false); // Item 7: Reverse score
+        userScore += getScoreForItem(R.id.radioGroupQ7, true); // Item 7: Reverse score
         userScore += getScoreForItem(R.id.radioGroupQ8, true);  // Item 8: Normal score
         userScore += getScoreForItem(R.id.radioGroupQ9, true);  // Item 9: Normal score
-        userScore += getScoreForItem(R.id.radioGroupQ10, false); // Item 10: Reverse score
+        userScore += getScoreForItem(R.id.radioGroupQ10, true); // Item 10: Reverse score
 
-        totalScore = 40; // Maximum possible score for RSE (10 questions * 4 points each)
+        totalScore = 30; // Maximum possible score for RSE (10 questions * 4 points each)
     }
 
     private int getScoreForItem(int radioGroupId, boolean isNormalScoring) {
@@ -75,11 +75,9 @@ public class LowSelfEsteemActivity extends AppCompatActivity {
     }
 
     private String getSelfEsteemLevel(int score) {
-        if (score >= 31) return "Very Low Self-Esteem";
-        else if (score >= 21) return "Low Self-Esteem";
-        else if (score >= 11) return "Moderate Self-Esteem";
-        else if (score >= 6) return "High Self-Esteem";
-        else return "Very High Self-Esteem";
+        if (score >= 26) return "High Self-Esteem";
+        else if (score >= 15) return "Normal Self-Esteem";
+        else return "Low Self-Esteem";
     }
 
     private void saveTestHistory() {

@@ -58,7 +58,7 @@
                         android:padding="8dp"
                         android:textSize="16sp"
                         android:layout_marginBottom="8dp"
-                        android:tag="1"/>
+                        android:tag="3"/>
 
                     <RadioButton
                         android:id="@+id/radioQ1_1"
@@ -78,7 +78,7 @@
                         android:padding="8dp"
                         android:textSize="16sp"
                         android:layout_marginBottom="8dp"
-                        android:tag="3"/>
+                        android:tag="1"/>
 
                     <RadioButton
                         android:id="@+id/radioQ1_3"
@@ -88,7 +88,7 @@
                         android:padding="8dp"
                         android:textSize="16sp"
                         android:layout_marginBottom="8dp"
-                        android:tag="4"/>
+                        android:tag="0"/>
                 </RadioGroup>
 
                 <!-- Q2: At times I think I am no good at all. -->
@@ -115,7 +115,7 @@
                         android:padding="8dp"
                         android:textSize="16sp"
                         android:layout_marginBottom="8dp"
-                        android:tag="1"/>
+                        android:tag="3"/>
 
                     <RadioButton
                         android:id="@+id/radioQ2_1"
@@ -135,7 +135,7 @@
                         android:padding="8dp"
                         android:textSize="16sp"
                         android:layout_marginBottom="8dp"
-                        android:tag="3"/>
+                        android:tag="1"/>
 
                     <RadioButton
                         android:id="@+id/radioQ2_3"
@@ -145,7 +145,7 @@
                         android:padding="8dp"
                         android:textSize="16sp"
                         android:layout_marginBottom="8dp"
-                        android:tag="4"/>
+                        android:tag="0"/>
                 </RadioGroup>
 
                 <!-- Q3: I feel that I have a number of good qualities. -->
@@ -172,7 +172,7 @@
                         android:padding="8dp"
                         android:textSize="16sp"
                         android:layout_marginBottom="8dp"
-                        android:tag="1"/>
+                        android:tag="0"/>
 
                     <RadioButton
                         android:id="@+id/radioQ3_1"
@@ -182,7 +182,7 @@
                         android:padding="8dp"
                         android:textSize="16sp"
                         android:layout_marginBottom="8dp"
-                        android:tag="2"/>
+                        android:tag="1"/>
 
                     <RadioButton
                         android:id="@+id/radioQ3_2"
@@ -192,7 +192,7 @@
                         android:padding="8dp"
                         android:textSize="16sp"
                         android:layout_marginBottom="8dp"
-                        android:tag="3"/>
+                        android:tag="2"/>
 
                     <RadioButton
                         android:id="@+id/radioQ3_3"
@@ -202,7 +202,7 @@
                         android:padding="8dp"
                         android:textSize="16sp"
                         android:layout_marginBottom="8dp"
-                        android:tag="4"/>
+                        android:tag="3"/>
                 </RadioGroup>
 
                 <!-- Q4: I am able to do things as well as most other people. -->
@@ -229,7 +229,7 @@
                         android:padding="8dp"
                         android:textSize="16sp"
                         android:layout_marginBottom="8dp"
-                        android:tag="1"/>
+                        android:tag="3"/>
 
                     <RadioButton
                         android:id="@+id/radioQ4_1"
@@ -249,7 +249,7 @@
                         android:padding="8dp"
                         android:textSize="16sp"
                         android:layout_marginBottom="8dp"
-                        android:tag="3"/>
+                        android:tag="1"/>
 
                     <RadioButton
                         android:id="@+id/radioQ4_3"
@@ -259,7 +259,7 @@
                         android:padding="8dp"
                         android:textSize="16sp"
                         android:layout_marginBottom="8dp"
-                        android:tag="4"/>
+                        android:tag="0"/>
                 </RadioGroup>
             </LinearLayout>
         </androidx.cardview.widget.CardView>
@@ -311,7 +311,7 @@
                         android:padding="8dp"
                         android:textSize="16sp"
                         android:layout_marginBottom="8dp"
-                        android:tag="1"/>
+                        android:tag="0"/>
 
                     <RadioButton
                         android:id="@+id/radioQ5_1"
@@ -321,7 +321,7 @@
                         android:padding="8dp"
                         android:textSize="16sp"
                         android:layout_marginBottom="8dp"
-                        android:tag="2"/>
+                        android:tag="1"/>
 
                     <RadioButton
                         android:id="@+id/radioQ5_2"
@@ -331,7 +331,7 @@
                         android:padding="8dp"
                         android:textSize="16sp"
                         android:layout_marginBottom="8dp"
-                        android:tag="3"/>
+                        android:tag="2"/>
 
                     <RadioButton
                         android:id="@+id/radioQ5_3"
@@ -341,7 +341,7 @@
                         android:padding="8dp"
                         android:textSize="16sp"
                         android:layout_marginBottom="8dp"
-                        android:tag="4"/>
+                        android:tag="3"/>
                 </RadioGroup>
 
                 <!-- Q6: I certainly feel useless at times. -->
@@ -368,7 +368,7 @@
                         android:padding="8dp"
                         android:textSize="16sp"
                         android:layout_marginBottom="8dp"
-                        android:tag="1"/>
+                        android:tag="3"/>
 
                     <RadioButton
                         android:id="@+id/radioQ6_1"
@@ -388,7 +388,7 @@
                         android:padding="8dp"
                         android:textSize="16sp"
                         android:layout_marginBottom="8dp"
-                        android:tag="3"/>
+                        android:tag="1"/>
 
                     <RadioButton
                         android:id="@+id/radioQ6_3"
@@ -398,7 +398,7 @@
                         android:padding="8dp"
                         android:textSize="16sp"
                         android:layout_marginBottom="8dp"
-                        android:tag="4"/>
+                        android:tag="0"/>
                 </RadioGroup>
 
                 <!-- Q7: I am proud of who I am. -->
@@ -425,7 +425,7 @@
                         android:padding="8dp"
                         android:textSize="16sp"
                         android:layout_marginBottom="8dp"
-                        android:tag="1"/>
+                        android:tag="3"/>
 
                     <RadioButton
                         android:id="@+id/radioQ7_1"
@@ -445,7 +445,7 @@
                         android:padding="8dp"
                         android:textSize="16sp"
                         android:layout_marginBottom="8dp"
-                        android:tag="3"/>
+                        android:tag="1"/>
 
                     <RadioButton
                         android:id="@+id/radioQ7_3"
@@ -455,7 +455,7 @@
                         android:padding="8dp"
                         android:textSize="16sp"
                         android:layout_marginBottom="8dp"
-                        android:tag="4"/>
+                        android:tag="0"/>
                 </RadioGroup>
             </LinearLayout>
         </androidx.cardview.widget.CardView>
@@ -507,7 +507,7 @@
                         android:padding="8dp"
                         android:textSize="16sp"
                         android:layout_marginBottom="8dp"
-                        android:tag="1"/>
+                        android:tag="0"/>
 
                     <RadioButton
                         android:id="@+id/radioQ8_1"
@@ -517,7 +517,7 @@
                         android:padding="8dp"
                         android:textSize="16sp"
                         android:layout_marginBottom="8dp"
-                        android:tag="2"/>
+                        android:tag="1"/>
 
                     <RadioButton
                         android:id="@+id/radioQ8_2"
@@ -527,7 +527,7 @@
                         android:padding="8dp"
                         android:textSize="16sp"
                         android:layout_marginBottom="8dp"
-                        android:tag="3"/>
+                        android:tag="2"/>
 
                     <RadioButton
                         android:id="@+id/radioQ8_3"
@@ -537,7 +537,7 @@
                         android:padding="8dp"
                         android:textSize="16sp"
                         android:layout_marginBottom="8dp"
-                        android:tag="4"/>
+                        android:tag="3"/>
                 </RadioGroup>
 
                 <!-- Q9: All in all, I am inclined to feel that I am a failure. -->
@@ -564,7 +564,7 @@
                         android:padding="8dp"
                         android:textSize="16sp"
                         android:layout_marginBottom="8dp"
-                        android:tag="1"/>
+                        android:tag="0"/>
 
                     <RadioButton
                         android:id="@+id/radioQ9_1"
@@ -574,7 +574,7 @@
                         android:padding="8dp"
                         android:textSize="16sp"
                         android:layout_marginBottom="8dp"
-                        android:tag="2"/>
+                        android:tag="1"/>
 
                     <RadioButton
                         android:id="@+id/radioQ9_2"
@@ -584,7 +584,7 @@
                         android:padding="8dp"
                         android:textSize="16sp"
                         android:layout_marginBottom="8dp"
-                        android:tag="3"/>
+                        android:tag="2"/>
 
                     <RadioButton
                         android:id="@+id/radioQ9_3"
@@ -594,7 +594,7 @@
                         android:padding="8dp"
                         android:textSize="16sp"
                         android:layout_marginBottom="8dp"
-                        android:tag="4"/>
+                        android:tag="3"/>
                 </RadioGroup>
 
                 <!-- Q10: I take a positive attitude toward myself. -->
@@ -621,7 +621,7 @@
                         android:padding="8dp"
                         android:textSize="16sp"
                         android:layout_marginBottom="8dp"
-                        android:tag="1"/>
+                        android:tag="0"/>
 
                     <RadioButton
                         android:id="@+id/radioQ10_1"
@@ -631,7 +631,7 @@
                         android:padding="8dp"
                         android:textSize="16sp"
                         android:layout_marginBottom="8dp"
-                        android:tag="2"/>
+                        android:tag="1"/>
 
                     <RadioButton
                         android:id="@+id/radioQ10_2"
@@ -641,7 +641,7 @@
                         android:padding="8dp"
                         android:textSize="16sp"
                         android:layout_marginBottom="8dp"
-                        android:tag="3"/>
+                        android:tag="2"/>
 
                     <RadioButton
                         android:id="@+id/radioQ10_3"
@@ -651,7 +651,7 @@
                         android:padding="8dp"
                         android:textSize="16sp"
                         android:layout_marginBottom="8dp"
-                        android:tag="4"/>
+                        android:tag="3"/>
                 </RadioGroup>
             </LinearLayout>
         </androidx.cardview.widget.CardView>
