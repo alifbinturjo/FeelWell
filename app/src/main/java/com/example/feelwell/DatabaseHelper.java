@@ -35,9 +35,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String COLUMN_TEST_HISTORY_DATE = "date";
     private static final String COLUMN_TEST_HISTORY_RESULT = "score";
 
-    private static final String COLUMN_TASK_NAME = "task";
+    private static final String COLUMN_TASK_NAME = "name";
     private static final String COLUMN_TASK_TEST_NAME = "test_name";
     private static final String COLUMN_TASK_LEVEL = "level";
+    private static final String COLUMN_TASK_TYPE = "type";
 
     private static final String COLUMN_TASK_HISTORY_TASK_NAME = "task";
     private static final String COLUMN_TASK_HISTORY_DATE = "date";
@@ -65,9 +66,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             + "FOREIGN KEY (" + COLUMN_TEST_HISTORY_TEST_NAME + ") REFERENCES " + TABLE_TESTS + "(" + COLUMN_TEST_NAME + ") ON DELETE CASCADE);";
 
     private static final String CREATE_TASKS_TABLE = "CREATE TABLE " + TABLE_TASKS + "("
-            + COLUMN_TASK_NAME + " TEXT PRIMARY KEY, "
+            + COLUMN_TASK_NAME + " TEXT, "
             + COLUMN_TASK_TEST_NAME + " TEXT, "
             + COLUMN_TASK_LEVEL + " TEXT, "
+            + COLUMN_TASK_TYPE + " TEXT, "
+            + "PRIMARY KEY (" + COLUMN_TASK_NAME + ", " + COLUMN_TASK_TEST_NAME + ", " + COLUMN_TASK_LEVEL + "), "
             + "FOREIGN KEY (" + COLUMN_TASK_TEST_NAME + ") REFERENCES " + TABLE_TESTS + "(" + COLUMN_TEST_NAME + ") ON DELETE CASCADE);";
 
     private static final String CREATE_TASK_HISTORY_TABLE = "CREATE TABLE " + TABLE_TASK_HISTORY + "("
@@ -92,6 +95,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL(CREATE_TEST_HISTORY_TABLE);
         db.execSQL(CREATE_TASKS_TABLE);
         db.execSQL(CREATE_TASK_HISTORY_TABLE);
+
         // Insert predefined test names
         String[] testNames = {"pss", "rse", "gad7", "phq9"};
         for (String testName : testNames) {
@@ -99,6 +103,84 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             values.put(COLUMN_TEST_NAME, testName);
             db.insert(TABLE_TESTS, null, values);
         }
+
+        // Populate tasks table
+        insertTasks(db);
+    }
+
+    private void insertTasks(SQLiteDatabase db) {
+        // PHQ9 tasks
+        insertTask(db, "phq9", "Minimal or No Depression", "Maintain a gratitude journal", "Text");
+        insertTask(db, "phq9", "Minimal or No Depression", "Do 10 minutes of physical activity", "Time");
+        insertTask(db, "phq9", "Minimal or No Depression", "Listen to uplifting music & Spend time in nature or sunlight", "Suggestion");
+
+        insertTask(db, "phq9", "Mild Depression", "Call or text a friend", "Tick");
+        insertTask(db, "phq9", "Mild Depression", "Try guided meditation for 5 minutes", "Time");
+        insertTask(db, "phq9", "Mild Depression", "Reduce screen time by 30 minutes & Engage in a creative hobby (drawing, writing, music)", "Suggestion");
+
+        insertTask(db, "phq9", "Moderate Depression", "Set one small, achievable goal today", "Text");
+        insertTask(db, "phq9", "Moderate Depression", "Follow a structured morning routine", "Suggestion");
+        insertTask(db, "phq9", "Moderate Depression", "Take a short walk outside", "Tick");
+        insertTask(db, "phq9", "Moderate Depression", "Write down three things that went well today", "Text");
+
+        insertTask(db, "phq9", "Moderately Severe Depression", "Challenge one negative thought and replace it with a positive one", "Text");
+        insertTask(db, "phq9", "Moderately Severe Depression", "Practice deep breathing for 5 minutes", "Time");
+        insertTask(db, "phq9", "Moderately Severe Depression", "Schedule a self-care activity (bath, relaxation, journaling)  & Spend time doing a light physical activity", "Suggestion");
+
+        insertTask(db, "phq9", "Severe Depression", "Reach out to a supportive friend or family member", "Tick");
+        insertTask(db, "phq9", "Severe Depression", "Follow a basic routine (wake up, shower, eat) & Avoid isolating—spend time with someone trusted & Seek professional help if feeling overwhelmed", "Suggestion");
+
+        // GAD7 tasks
+        insertTask(db, "gad7", "Minimal or No Anxiety", "Continue mindfulness practices & Maintain a balanced sleep schedule & Stay hydrated and eat nutritious meals", "Suggestion");
+        insertTask(db, "gad7", "Minimal or No Anxiety", "Spend 10 minutes in a relaxing activity", "Time");
+
+        insertTask(db, "gad7", "Mild Anxiety", "Try the 4-7-8 breathing technique", "Tick");
+        insertTask(db, "gad7", "Mild Anxiety", "Identify one stressor and write down a coping strategy", "Text");
+        insertTask(db, "gad7", "Mild Anxiety", "Limit caffeine and sugar intake for a day", "Tick");
+        insertTask(db, "gad7", "Mild Anxiety", "Engage in stretching or light exercise", "Suggestion");
+
+        insertTask(db, "gad7", "Moderate Anxiety", "Do the 5-4-3-2-1 grounding exercise", "Text");
+        insertTask(db, "gad7", "Moderate Anxiety", "Take a 15-minute break from work or responsibilities", "Time");
+        insertTask(db, "gad7", "Moderate Anxiety", "Schedule \"worry time\" to avoid excessive overthinking & Practice progressive muscle relaxation", "Suggestion");
+
+        insertTask(db, "gad7", "Severe Anxiety", "Write down worries and challenge negative thoughts", "Text");
+        insertTask(db, "gad7", "Severe Anxiety", "Seek social support—talk to a trusted person", "Tick");
+        insertTask(db, "gad7", "Severe Anxiety", "Try guided visualization for relaxation & Consider professional counseling for persistent anxiety", "Suggestion");
+
+        // PSS tasks
+        insertTask(db, "pss", "Low Stress", "Maintain a consistent work-life balance & Continue engaging in relaxing activities", "Suggestion");
+        insertTask(db, "pss", "Low Stress", "Practice deep breathing for 3 minutes", "Time");
+        insertTask(db, "pss", "Low Stress", "Drink a glass of water and take a short break", "Tick");
+
+        insertTask(db, "pss", "Moderate Stress", "Take a mindful walk for 10 minutes", "Time");
+        insertTask(db, "pss", "Moderate Stress", "Break a large task into small steps and complete one", "Tick");
+        insertTask(db, "pss", "Moderate Stress", "Listen to calming music or nature sounds & Engage in a self-care activity like journaling or meditation", "Suggestion");
+
+        insertTask(db, "pss", "High Stress", "Reduce social media/news consumption for a day", "Tick");
+        insertTask(db, "pss", "High Stress", "Practice saying 'no' to overwhelming commitments & Avoid multitasking—focus on one thing at a time & Seek professional guidance if stress feels unmanageable", "Suggestion");
+
+        // RSE tasks
+        insertTask(db, "rse", "Low Self-Esteem", "Write down one thing you appreciate about yourself", "Text");
+        insertTask(db, "rse", "Low Self-Esteem", "Avoid negative self-talk for an hour", "Tick");
+        insertTask(db, "rse", "Low Self-Esteem", "Do one thing outside your comfort zone today", "Tick");
+        insertTask(db, "rse", "Low Self-Esteem", "List past achievements, no matter how small", "Text");
+
+        insertTask(db, "rse", "Normal Self-Esteem", "Complete one productive task that makes you feel accomplished", "Tick");
+        insertTask(db, "rse", "Normal Self-Esteem", "Engage in an activity that boosts your confidence & Spend time with people who uplift you", "Suggestion");
+        insertTask(db, "rse", "Normal Self-Esteem", "Maintain good posture and body language for 5 minutes", "Time");
+
+        insertTask(db, "rse", "High Self-Esteem", "Encourage or compliment someone today", "Tick");
+        insertTask(db, "rse", "High Self-Esteem", "Share a success story or experience with others", "Tick");
+        insertTask(db, "rse", "High Self-Esteem", "Take on a new challenge or leadership role & Reflect on what has helped build your confidence", "Suggestion");
+    }
+
+    private void insertTask(SQLiteDatabase db, String testName, String level, String name, String type) {
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_TASK_TEST_NAME, testName);
+        values.put(COLUMN_TASK_LEVEL, level);
+        values.put(COLUMN_TASK_NAME, name);
+        values.put(COLUMN_TASK_TYPE, type);
+        db.insert(TABLE_TASKS, null, values);
     }
 
     @Override
