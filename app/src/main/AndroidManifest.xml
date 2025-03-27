@@ -41,6 +41,12 @@
             android:name=".TaskActivity"
             android:exported="false"
             android:theme="@style/Theme.FeelWell.NoActionBar" />
+
+        <activity
+            android:name=".TimeActivity"
+            android:exported="false"
+            android:theme="@style/Theme.FeelWell.NoActionBar" />
+
         <activity
             android:name=".DepressionActivity"
             android:exported="false"
