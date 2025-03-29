@@ -1,16 +1,17 @@
 package com.example.feelwell;
 
+import android.app.AlertDialog;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.os.SystemClock;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
+import java.util.Locale;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class TimeActivity extends AppCompatActivity {
 
@@ -41,7 +42,11 @@ public class TimeActivity extends AppCompatActivity {
 
         // Get task description from intent
         String description = getIntent().getStringExtra("task_description");
-        taskDescription.setText(description);
+        if (description != null) {
+            taskDescription.setText(description);
+        } else {
+            taskDescription.setText("Activity Time");
+        }
 
         // Extract time from description (e.g., "5 minutes" → 5)
         durationMinutes = extractTimeFromDescription(description);
@@ -52,11 +57,17 @@ public class TimeActivity extends AppCompatActivity {
     }
 
     private int extractTimeFromDescription(String description) {
+        if (description == null) return 5;
+
         // Pattern to match numbers followed by "minute" or "minutes"
         Pattern pattern = Pattern.compile("(\\d+)\\s+minute");
         Matcher matcher = pattern.matcher(description.toLowerCase());
         if (matcher.find()) {
-            return Integer.parseInt(matcher.group(1));
+            try {
+                return Integer.parseInt(matcher.group(1));
+            } catch (NumberFormatException e) {
+                return 5;
+            }
         }
         return 5; // Default value if no time found
     }
@@ -65,6 +76,9 @@ public class TimeActivity extends AppCompatActivity {
         startButton.setOnClickListener(v -> startTimer());
         pauseButton.setOnClickListener(v -> pauseTimer());
         resetButton.setOnClickListener(v -> resetTimer());
+
+        // Initial button states
+        updateButtonStates();
     }
 
     private void startTimer() {
@@ -83,6 +97,7 @@ public class TimeActivity extends AppCompatActivity {
                     timerText.setText("00:00");
                     timerVisual.setRotation(0);
                     showCompletionDialog();
+                    updateButtonStates();
                 }
             }.start();
 

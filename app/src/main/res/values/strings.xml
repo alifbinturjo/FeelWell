@@ -5,4 +5,7 @@
     <string name="enter_your_gender">Enter your gender</string>
     <string name="save">Save</string>
     <string name="profile_button_description">Profile Button</string>
+    <string name="start">Start</string>
+    <string name="pause">Pause</string>
+    <string name="reset">Reset</string>
 </resources>
