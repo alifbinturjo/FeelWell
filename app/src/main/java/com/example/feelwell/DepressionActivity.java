@@ -16,7 +16,7 @@ public class DepressionActivity extends AppCompatActivity {
 
     private int totalScore = 0;
     private int userScore = 0;
-    private DatabaseHelper dbHelper; // Database helper instance
+    private DatabaseHelper dbHelper;// Database helper instance
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,8 +76,14 @@ public class DepressionActivity extends AppCompatActivity {
     private void saveTestHistory() {
         String testName = "phq9";
         String currentDate = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
+        String severityLevel = getSeverityLevel(userScore);
 
+        // Save test result
         dbHelper.insertTestHistory(testName, currentDate, userScore);
+
+        // Assign tasks - first delete old ones, then assign new ones
+        dbHelper.deleteTasksForTest(testName);
+        dbHelper.assignTasksForTest(testName, severityLevel);
     }
 
     private void openResultActivity() {

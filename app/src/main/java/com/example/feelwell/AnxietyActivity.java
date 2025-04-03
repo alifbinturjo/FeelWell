@@ -31,7 +31,7 @@ public class AnxietyActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 calculateScore();
-                saveTestHistory(); // Insert the result into the database
+                saveTestHistory(); // Insert the result into the database and assign tasks
                 openResultActivity();
             }
         });
@@ -72,10 +72,16 @@ public class AnxietyActivity extends AppCompatActivity {
     }
 
     private void saveTestHistory() {
-        String testName = "gad7"; // Generalized Anxiety Disorder (GAD-7)
+        String testName = "gad7";
         String currentDate = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
+        String anxietyLevel = getAnxietyLevel(userScore);
 
+        // Save test result
         dbHelper.insertTestHistory(testName, currentDate, userScore);
+
+        // Assign tasks - first delete old ones, then assign new ones
+        dbHelper.deleteTasksForTest(testName);
+        dbHelper.assignTasksForTest(testName, anxietyLevel);
     }
 
     private void openResultActivity() {

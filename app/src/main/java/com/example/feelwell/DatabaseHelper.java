@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,14 +36,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String COLUMN_TEST_HISTORY_DATE = "date";
     private static final String COLUMN_TEST_HISTORY_RESULT = "score";
 
-    private static final String COLUMN_TASK_NAME = "name";
+    public static final String COLUMN_TASK_NAME = "name";
     private static final String COLUMN_TASK_TEST_NAME = "test_name";
     private static final String COLUMN_TASK_LEVEL = "level";
     private static final String COLUMN_TASK_TYPE = "type";
 
-    private static final String COLUMN_TASK_HISTORY_TASK_NAME = "task";
-    private static final String COLUMN_TASK_HISTORY_DATE = "date";
-    private static final String COLUMN_TASK_HISTORY_STATUS = "status";
+    public static final String COLUMN_TASK_HISTORY_TASK_NAME = "task";
+
+    public static final String COLUMN_TASK_HISTORY_STATUS = "status";
 
     private static final String CREATE_USER_TABLE = "CREATE TABLE " + TABLE_USER + "("
             + COLUMN_USER_NAME + " TEXT PRIMARY KEY, "
@@ -75,10 +76,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     private static final String CREATE_TASK_HISTORY_TABLE = "CREATE TABLE " + TABLE_TASK_HISTORY + "("
             + COLUMN_TASK_HISTORY_TASK_NAME + " TEXT, "
-            + COLUMN_TASK_HISTORY_DATE + " DATE, "
+            + COLUMN_TASK_TEST_NAME + " TEXT, "
+            + COLUMN_TASK_LEVEL + " TEXT, "
             + COLUMN_TASK_HISTORY_STATUS + " TEXT, "
-            + "PRIMARY KEY (" + COLUMN_TASK_HISTORY_TASK_NAME + ", " + COLUMN_TASK_HISTORY_DATE + "), "
-            + "FOREIGN KEY (" + COLUMN_TASK_HISTORY_TASK_NAME + ") REFERENCES " + TABLE_TASKS + "(" + COLUMN_TASK_NAME + ") ON DELETE CASCADE);";
+            + "PRIMARY KEY (" + COLUMN_TASK_HISTORY_TASK_NAME + ", " + COLUMN_TASK_TEST_NAME + ", " + COLUMN_TASK_LEVEL + "), "
+            + "FOREIGN KEY (" + COLUMN_TASK_HISTORY_TASK_NAME + ", " + COLUMN_TASK_TEST_NAME + ", " + COLUMN_TASK_LEVEL + ") "
+            + "REFERENCES " + TABLE_TASKS + "(" + COLUMN_TASK_NAME + ", " + COLUMN_TASK_TEST_NAME + ", " + COLUMN_TASK_LEVEL + ") ON DELETE CASCADE);";
+
 
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -316,5 +320,71 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 return 0;
         }
     }
+
+    public void deleteTasksForTest(String testName) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(TABLE_TASK_HISTORY,
+                COLUMN_TASK_HISTORY_TASK_NAME + " IN (SELECT " + COLUMN_TASK_NAME +
+                        " FROM " + TABLE_TASKS + " WHERE " + COLUMN_TASK_TEST_NAME + " = ?)",
+                new String[]{testName});
+
+        db.delete(TABLE_TASK_HISTORY, COLUMN_TASK_TEST_NAME + " = ?", new String[]{testName});
+        db.close();
+    }
+
+
+    public void assignTasksForTest(String testName, String level) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        Cursor cursor = db.query(TABLE_TASKS,
+                new String[]{COLUMN_TASK_NAME, COLUMN_TASK_TEST_NAME, COLUMN_TASK_LEVEL},
+                COLUMN_TASK_TEST_NAME + " = ? AND " + COLUMN_TASK_LEVEL + " = ?",
+                new String[]{testName, level},
+                null, null, null);
+
+        if (cursor.moveToFirst()) {
+            do {
+                String taskName = cursor.getString(0);
+                String taskTestName = cursor.getString(1);
+                String taskLevel = cursor.getString(2);
+
+                ContentValues values = new ContentValues();
+                values.put(COLUMN_TASK_HISTORY_TASK_NAME, taskName);
+                values.put(COLUMN_TASK_TEST_NAME, taskTestName);
+                values.put(COLUMN_TASK_LEVEL, taskLevel);
+                values.put(COLUMN_TASK_HISTORY_STATUS, "incomplete");
+
+                db.insertWithOnConflict(TABLE_TASK_HISTORY,
+                        null,
+                        values,
+                        SQLiteDatabase.CONFLICT_REPLACE);
+            } while (cursor.moveToNext());
+        }
+
+        cursor.close();
+        db.close();
+    }
+
+
+    public List<String> getAssignedTasks() {
+        List<String> tasks = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursor = db.query(TABLE_TASK_HISTORY,
+                new String[]{COLUMN_TASK_HISTORY_TASK_NAME},
+                COLUMN_TASK_HISTORY_STATUS + " = ?",
+                new String[]{"incomplete"},
+                null, null, null);
+
+        if (cursor.moveToFirst()) {
+            do {
+                tasks.add(cursor.getString(0));
+            } while (cursor.moveToNext());
+        }
+
+        cursor.close();
+        return tasks;
+    }
+
 
 }

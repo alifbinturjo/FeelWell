@@ -78,6 +78,9 @@ public class StressActivity extends AppCompatActivity {
         String currentDate = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
 
         dbHelper.insertTestHistory(testName, currentDate, userScore);
+        String stressLevel = getStressLevel(userScore);
+        dbHelper.deleteTasksForTest(testName);
+        dbHelper.assignTasksForTest(testName, stressLevel);
     }
 
     private void openResultActivity() {

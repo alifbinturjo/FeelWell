@@ -5,14 +5,16 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewTreeObserver;
+import android.widget.Button;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class ResultActivity extends AppCompatActivity {
 
-    private View horizontalBar; // Changed from verticalLine to horizontalBar
+    private View horizontalBar;
     private View userScoreIndicator;
     private TextView severityLevelText;
+    private Button viewTaskButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,9 +22,10 @@ public class ResultActivity extends AppCompatActivity {
         setContentView(R.layout.activity_result);
 
         // Initialize views
-        horizontalBar = findViewById(R.id.horizontalBar); // Updated ID
+        horizontalBar = findViewById(R.id.horizontalBar);
         userScoreIndicator = findViewById(R.id.userScoreIndicator);
         severityLevelText = findViewById(R.id.severityLevelText);
+        viewTaskButton = findViewById(R.id.viewTaskButton);
 
         // Get data from intent
         Intent intent = getIntent();
@@ -32,6 +35,17 @@ public class ResultActivity extends AppCompatActivity {
 
         // Set severity level text
         severityLevelText.setText("Severity Level: " + severityLevel);
+
+        // Set click listener for the button
+        viewTaskButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Navigate to TaskActivity and finish this activity
+                Intent taskIntent = new Intent(ResultActivity.this, TaskActivity.class);
+                startActivity(taskIntent);
+                finish(); // This ensures the user won't come back to this activity when pressing back
+            }
+        });
 
         // Wait for the layout to be fully drawn before positioning the indicator
         horizontalBar.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {

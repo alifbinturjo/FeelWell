@@ -85,6 +85,9 @@ public class LowSelfEsteemActivity extends AppCompatActivity {
         String currentDate = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
 
         dbHelper.insertTestHistory(testName, currentDate, userScore);
+        String selfEsteemLevel = getSelfEsteemLevel(userScore);
+        dbHelper.deleteTasksForTest(testName);
+        dbHelper.assignTasksForTest(testName, selfEsteemLevel);
     }
 
     private void openResultActivity() {
