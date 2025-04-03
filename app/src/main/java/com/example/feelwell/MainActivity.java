@@ -19,7 +19,7 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = getIntent();
         String feeling = intent.getStringExtra("FEELING");
 
-        // Set engaging text (this replaces the missing feelingTextView)
+        // Set engaging text
         TextView engagingTextView = findViewById(R.id.engagingTextView);
         engagingTextView.setText("No worries, we've got you covered!");
 
@@ -32,28 +32,26 @@ public class MainActivity extends AppCompatActivity {
                 Intent assessmentIntent;
                 if ("Depression".equals(feeling)) {
                     assessmentIntent = new Intent(MainActivity.this, DepressionActivity.class);
-
                 } else if ("Stress".equals(feeling)) {
                     assessmentIntent = new Intent(MainActivity.this, StressActivity.class);
-
                 } else if ("Anxiety".equals(feeling)) {
                     assessmentIntent = new Intent(MainActivity.this, AnxietyActivity.class);
-
-                } else  {
+                } else {
                     assessmentIntent = new Intent(MainActivity.this, LowSelfEsteemActivity.class);
-
                 }
                 startActivity(assessmentIntent);
                 finish();
             }
         });
 
-        // Button: Do a Task
+        // Button: Do a Task - Modified to pass the feeling
         Button doTaskButton = findViewById(R.id.doTaskButton);
         doTaskButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent taskIntent = new Intent(MainActivity.this, DefaultTaskActivity.class);
+                // Pass the feeling to DefaultTaskActivity
+                taskIntent.putExtra("FEELING", feeling);
                 startActivity(taskIntent);
             }
         });

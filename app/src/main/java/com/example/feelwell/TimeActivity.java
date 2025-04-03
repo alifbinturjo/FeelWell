@@ -1,31 +1,31 @@
 package com.example.feelwell;
 
 import android.app.AlertDialog;
+import android.content.Intent;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.os.CountDownTimer;
-import android.os.SystemClock;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class TimeActivity extends AppCompatActivity {
-
     private TextView taskDescription;
     private TextView timerText;
-    private Button startButton;
-    private Button pauseButton;
-    private Button resetButton;
-    private ImageView timerVisual;
-
+    private Button startButton, pauseButton, resetButton;
+    private ProgressBar progressBar;
     private CountDownTimer countDownTimer;
     private long timeLeftInMillis;
+    private long totalTimeInMillis;
     private boolean timerRunning;
     private int durationMinutes;
+    private String description;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,66 +38,58 @@ public class TimeActivity extends AppCompatActivity {
         startButton = findViewById(R.id.startButton);
         pauseButton = findViewById(R.id.pauseButton);
         resetButton = findViewById(R.id.resetButton);
-        timerVisual = findViewById(R.id.timerVisual);
+        progressBar = findViewById(R.id.progressBar);
 
-        // Get task description from intent
-        String description = getIntent().getStringExtra("task_description");
-        if (description != null) {
-            taskDescription.setText(description);
-        } else {
-            taskDescription.setText("Activity Time");
-        }
+        // Setup button colors
+        startButton.setBackgroundColor(ContextCompat.getColor(this, R.color.green));
+        pauseButton.setBackgroundColor(ContextCompat.getColor(this, R.color.orange));
+        resetButton.setBackgroundColor(ContextCompat.getColor(this, R.color.red));
 
-        // Extract time from description (e.g., "5 minutes" → 5)
+        // Get task description
+        description = getIntent().getStringExtra("task_description");
+        taskDescription.setText(description != null ? description : "Activity Time");
+
+        // Extract and set timer duration
         durationMinutes = extractTimeFromDescription(description);
-        timeLeftInMillis = durationMinutes * 60 * 1000; // Convert to milliseconds
-
+        totalTimeInMillis = durationMinutes * 60 * 1000;
+        timeLeftInMillis = totalTimeInMillis;
         updateCountDownText();
-        setupButtons();
-    }
+        progressBar.setProgress(100);
 
-    private int extractTimeFromDescription(String description) {
-        if (description == null) return 5;
-
-        // Pattern to match numbers followed by "minute" or "minutes"
-        Pattern pattern = Pattern.compile("(\\d+)\\s+minute");
-        Matcher matcher = pattern.matcher(description.toLowerCase());
-        if (matcher.find()) {
-            try {
-                return Integer.parseInt(matcher.group(1));
-            } catch (NumberFormatException e) {
-                return 5;
-            }
-        }
-        return 5; // Default value if no time found
-    }
-
-    private void setupButtons() {
+        // Button click listeners
         startButton.setOnClickListener(v -> startTimer());
         pauseButton.setOnClickListener(v -> pauseTimer());
         resetButton.setOnClickListener(v -> resetTimer());
 
-        // Initial button states
         updateButtonStates();
+    }
+
+    private int extractTimeFromDescription(String description) {
+        if (description == null) return 5;
+        Pattern pattern = Pattern.compile("(\\d+)\\s+minute");
+        Matcher matcher = pattern.matcher(description.toLowerCase());
+        return matcher.find() ? Integer.parseInt(matcher.group(1)) : 5;
     }
 
     private void startTimer() {
         if (!timerRunning) {
-            countDownTimer = new CountDownTimer(timeLeftInMillis, 1000) {
+            countDownTimer = new CountDownTimer(timeLeftInMillis, 100) { // 100ms for smoother updates
                 @Override
                 public void onTick(long millisUntilFinished) {
                     timeLeftInMillis = millisUntilFinished;
                     updateCountDownText();
-                    updateTimerVisual();
+                    updateProgressBar();
                 }
 
                 @Override
                 public void onFinish() {
                     timerRunning = false;
-                    timerText.setText("00:00");
-                    timerVisual.setRotation(0);
+                    timeLeftInMillis = 0;
+                    updateCountDownText();
+                    progressBar.setProgress(0);
+                    progressBar.getProgressDrawable().setColorFilter(
+                            ContextCompat.getColor(TimeActivity.this, R.color.green), PorterDuff.Mode.SRC_IN);
                     showCompletionDialog();
-                    updateButtonStates();
                 }
             }.start();
 
@@ -118,9 +110,10 @@ public class TimeActivity extends AppCompatActivity {
         if (countDownTimer != null) {
             countDownTimer.cancel();
         }
-        timeLeftInMillis = durationMinutes * 60 * 1000;
+        timeLeftInMillis = totalTimeInMillis;
         updateCountDownText();
-        timerVisual.setRotation(0);
+        progressBar.setProgress(100);
+        progressBar.getProgressDrawable().clearColorFilter();
         timerRunning = false;
         updateButtonStates();
     }
@@ -128,29 +121,49 @@ public class TimeActivity extends AppCompatActivity {
     private void updateCountDownText() {
         int minutes = (int) (timeLeftInMillis / 1000) / 60;
         int seconds = (int) (timeLeftInMillis / 1000) % 60;
-
-        String timeLeftFormatted = String.format(Locale.getDefault(), "%02d:%02d", minutes, seconds);
-        timerText.setText(timeLeftFormatted);
+        timerText.setText(String.format(Locale.getDefault(), "%02d:%02d", minutes, seconds));
     }
 
-    private void updateTimerVisual() {
-        float progress = (float) timeLeftInMillis / (durationMinutes * 60 * 1000);
-        float rotation = 360 * (1 - progress);
-        timerVisual.setRotation(rotation);
+    private void updateProgressBar() {
+        int progress = (int) ((timeLeftInMillis * 100) / totalTimeInMillis);
+        progressBar.setProgress(progress);
+
+        // Update progress color based on remaining time
+        if (progress > 50) {
+            progressBar.getProgressDrawable().setColorFilter(
+                    ContextCompat.getColor(this, R.color.blue), PorterDuff.Mode.SRC_IN);
+        } else if (progress > 25) {
+            progressBar.getProgressDrawable().setColorFilter(
+                    ContextCompat.getColor(this, R.color.orange), PorterDuff.Mode.SRC_IN);
+        } else {
+            progressBar.getProgressDrawable().setColorFilter(
+                    ContextCompat.getColor(this, R.color.red), PorterDuff.Mode.SRC_IN);
+        }
     }
 
     private void updateButtonStates() {
         startButton.setVisibility(timerRunning ? View.GONE : View.VISIBLE);
         pauseButton.setVisibility(timerRunning ? View.VISIBLE : View.GONE);
+        resetButton.setEnabled(!timerRunning);
     }
 
     private void showCompletionDialog() {
         new AlertDialog.Builder(this)
                 .setTitle("Task Completed!")
                 .setMessage("Great job completing your " + durationMinutes + " minute activity!")
-                .setPositiveButton("Done", (dialog, which) -> finish())
+                .setPositiveButton("Done", (dialog, which) -> {
+                    setCompletionResult(true);
+                    finish();
+                })
                 .setCancelable(false)
                 .show();
+    }
+
+    private void setCompletionResult(boolean isCompleted) {
+        Intent resultIntent = new Intent();
+        resultIntent.putExtra("task_completed", isCompleted);
+        resultIntent.putExtra("task_name", description);
+        setResult(RESULT_OK, resultIntent);
     }
 
     @Override
@@ -159,5 +172,11 @@ public class TimeActivity extends AppCompatActivity {
         if (countDownTimer != null) {
             countDownTimer.cancel();
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        setCompletionResult(false);
+        super.onBackPressed();
     }
 }

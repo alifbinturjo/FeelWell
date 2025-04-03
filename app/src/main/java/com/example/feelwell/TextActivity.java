@@ -1,44 +1,53 @@
 package com.example.feelwell;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 public class TextActivity extends AppCompatActivity {
     private EditText responseEditText;
+    private String description;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_text);
 
-        // Get task description from intent
-        String description = getIntent().getStringExtra("task_description");
+        description = getIntent().getStringExtra("task_description");
         TextView descriptionTextView = findViewById(R.id.descriptionTextView);
         descriptionTextView.setText(description);
 
         responseEditText = findViewById(R.id.responseEditText);
         Button doneButton = findViewById(R.id.doneButton);
 
-        ((android.view.View) doneButton).setOnClickListener(v -> {
-            // Save response if needed
+        doneButton.setOnClickListener(v -> {
             String response = responseEditText.getText().toString();
-            saveResponse(description, response);
-
-            // Return to TaskActivity
-            finish();
+            if (!response.isEmpty()) {
+                saveResponse(description, response);
+                setCompletionResult(true);
+                finish();
+            }
         });
     }
 
     private void saveResponse(String taskDescription, String response) {
         // Implement your saving logic here
-        // Example: SharedPreferences or database
+    }
+
+    private void setCompletionResult(boolean isCompleted) {
+        Intent resultIntent = new Intent();
+        resultIntent.putExtra("task_completed", isCompleted);
+        resultIntent.putExtra("task_name", description);
+        setResult(RESULT_OK, resultIntent);
+    }
+
+    @Override
+    public void onBackPressed() {
+        setCompletionResult(false);
+        super.onBackPressed();
     }
 }
