@@ -37,9 +37,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String COLUMN_TEST_HISTORY_RESULT = "score";
 
     public static final String COLUMN_TASK_NAME = "name";
-    private static final String COLUMN_TASK_TEST_NAME = "test_name";
-    private static final String COLUMN_TASK_LEVEL = "level";
-    private static final String COLUMN_TASK_TYPE = "type";
+    public static final String COLUMN_TASK_TEST_NAME = "test_name";
+    public static final String COLUMN_TASK_LEVEL = "level";
+    public static final String COLUMN_TASK_TYPE = "type";
 
     public static final String COLUMN_TASK_HISTORY_TASK_NAME = "task";
 

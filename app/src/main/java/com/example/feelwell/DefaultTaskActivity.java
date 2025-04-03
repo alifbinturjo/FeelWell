@@ -41,10 +41,7 @@ public class DefaultTaskActivity extends AppCompatActivity {
                         boolean taskCompleted = result.getData().getBooleanExtra("task_completed", false);
                         String taskName = result.getData().getStringExtra("task_name");
 
-                        if (taskCompleted && taskName != null) {
-                            markTaskComplete(taskName, true);
-                            loadTasks(); // Refresh the task list
-                        }
+
                     }
                 }
             });
@@ -105,8 +102,8 @@ public class DefaultTaskActivity extends AppCompatActivity {
                     String testName = cursor.getString(testNameIndex);
                     String level = cursor.getString(levelIndex);
 
-                    boolean isCompleted = isTaskCompleted(name);
-                    tasks.add(new Task(name, type, testName, level, isCompleted));
+
+
                 } while (cursor.moveToNext());
             }
         } catch (Exception e) {
@@ -129,39 +126,9 @@ public class DefaultTaskActivity extends AppCompatActivity {
         return "phq9";
     }
 
-    private boolean isTaskCompleted(String taskName) {
-        SQLiteDatabase db = dbHelper.getReadableDatabase();
-        String query = "SELECT " + DatabaseHelper.COLUMN_TASK_HISTORY_STATUS +
-                " FROM " + DatabaseHelper.TABLE_TASK_HISTORY +
-                " WHERE " + DatabaseHelper.COLUMN_TASK_HISTORY_TASK_NAME + " = ?" +
-                " ORDER BY " + DatabaseHelper.COLUMN_TASK_HISTORY_DATE + " DESC LIMIT 1";
 
-        try (Cursor cursor = db.rawQuery(query, new String[]{taskName})) {
-            if (cursor != null && cursor.moveToFirst()) {
-                int statusIndex = cursor.getColumnIndexOrThrow(DatabaseHelper.COLUMN_TASK_HISTORY_STATUS);
-                String status = cursor.getString(statusIndex);
-                return "completed".equalsIgnoreCase(status);
-            }
-        } catch (Exception e) {
-            Log.e(TAG, "Error checking task completion status", e);
-        }
 
-        return false;
-    }
 
-    private void markTaskComplete(String taskName, boolean isComplete) {
-        SQLiteDatabase db = dbHelper.getWritableDatabase();
-        ContentValues values = new ContentValues();
-        values.put(DatabaseHelper.COLUMN_TASK_HISTORY_TASK_NAME, taskName);
-        values.put(DatabaseHelper.COLUMN_TASK_HISTORY_DATE, System.currentTimeMillis());
-        values.put(DatabaseHelper.COLUMN_TASK_HISTORY_STATUS, isComplete ? "completed" : "incomplete");
-
-        try {
-            db.insert(DatabaseHelper.TABLE_TASK_HISTORY, null, values);
-        } catch (Exception e) {
-            Log.e(TAG, "Error marking task complete", e);
-        }
-    }
 
     private class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder> {
 
