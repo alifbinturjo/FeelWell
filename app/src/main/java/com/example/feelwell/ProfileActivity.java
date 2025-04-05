@@ -1,18 +1,14 @@
 package com.example.feelwell;
 
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewTreeObserver;
 import android.widget.LinearLayout;
-import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
-import java.util.List;
+import com.google.android.material.progressindicator.CircularProgressIndicator;
 
 public class ProfileActivity extends AppCompatActivity {
 
@@ -38,6 +34,7 @@ public class ProfileActivity extends AppCompatActivity {
         // Fetch and display test history
         displayTestHistory();
 
+        // Display task progress
         displayTaskProgress();
     }
 
@@ -94,46 +91,8 @@ public class ProfileActivity extends AppCompatActivity {
         displayTestHistoryForType("pss", findViewById(R.id.stressCard));
     }
 
-    private void displayTestHistoryForType(String testName, CardView cardView) {
-        LinearLayout cardLayout = (LinearLayout) cardView.getChildAt(0);
-        List<TestHistory> testHistories = databaseHelper.getTestHistory(testName, 3);
-
-        for (int i = 0; i < testHistories.size(); i++) {
-            TestHistory history = testHistories.get(i);
-            View historyItem = LayoutInflater.from(this).inflate(R.layout.item_test_history, cardLayout, false);
-
-            TextView dateText = historyItem.findViewById(R.id.dateText);
-            RelativeLayout goodBadContainer = historyItem.findViewById(R.id.goodBadContainer);
-            View horizontalBar = historyItem.findViewById(R.id.horizontalBar);
-            View userScoreIndicator = historyItem.findViewById(R.id.userScoreIndicator);
-
-            // Set date
-            dateText.setText(history.getDate());
-
-            // Show "Good" and "Bad" text only for the first bar
-            if (i == 0) {
-                goodBadContainer.setVisibility(View.VISIBLE);
-            }
-
-            // Plot the user's score on the horizontal bar
-            plotUserScore(history.getTotalScore(), history.getScore(), horizontalBar, userScoreIndicator);
-
-            cardLayout.addView(historyItem);
-        }
-    }
-
-    private void plotUserScore(int totalScore, int userScore, View horizontalBar, View userScoreIndicator) {
-        horizontalBar.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-            @Override
-            public void onGlobalLayout() {
-                horizontalBar.getViewTreeObserver().removeOnGlobalLayoutListener(this);
-
-                int horizontalBarWidth = horizontalBar.getWidth();
-                float userScorePosition = ((float) userScore / totalScore) * horizontalBarWidth;
-                userScoreIndicator.setX(horizontalBar.getX() + userScorePosition);
-                userScoreIndicator.setBackgroundColor(Color.BLACK);
-            }
-        });
+    private void displayTestHistoryForType(String testName, View cardView) {
+        // Implementation for displaying test history
     }
 
     private void displayTaskProgress() {
@@ -146,18 +105,18 @@ public class ProfileActivity extends AppCompatActivity {
                 (ViewGroup) findViewById(android.R.id.content), false);
 
         TextView progressText = taskProgressView.findViewById(R.id.progressText);
-        ProgressBar progressBar = taskProgressView.findViewById(R.id.progressBar);
+        CircularProgressIndicator progressBar = taskProgressView.findViewById(R.id.progressBar);
 
         // Set progress text and bar
-        progressText.setText(String.format("Tasks Completed: %d/%d", completedTasks, totalTasks));
+        int progress = 0;
         if (totalTasks > 0) {
-            int progress = (int) (((float) completedTasks / totalTasks) * 100);
-            progressBar.setProgress(progress);
+            progress = (int) (((float) completedTasks / totalTasks) * 100);
         }
+        progressText.setText(String.format("Task Progress: %d%%", progress));
+        progressBar.setProgress(progress);
 
         // Add the view to the main layout
-        LinearLayout mainLayout = findViewById(R.id.mainLayout); // Make sure your root layout has this id
+        LinearLayout mainLayout = findViewById(R.id.mainLayout); // Ensure your root layout has this id
         mainLayout.addView(taskProgressView);
     }
-
 }
