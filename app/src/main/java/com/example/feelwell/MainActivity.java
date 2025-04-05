@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent taskIntent = new Intent(MainActivity.this, DefaultTaskActivity.class);
                 // Pass the feeling to DefaultTaskActivity
-                taskIntent.putExtra("FEELING", feeling);
+                taskIntent.putExtra("feeling", feeling);
                 startActivity(taskIntent);
             }
         });

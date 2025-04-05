@@ -1,220 +1,170 @@
 package com.example.feelwell;
 
-import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Paint;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
-
-import androidx.activity.result.ActivityResult;
-import androidx.activity.result.ActivityResultCallback;
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
-import java.util.ArrayList;
-import java.util.List;
+import androidx.cardview.widget.CardView;
 
 public class DefaultTaskActivity extends AppCompatActivity {
 
-    private static final String TAG = "DefaultTaskActivity";
-    private RecyclerView tasksRecyclerView;
-    private TaskAdapter taskAdapter;
     private DatabaseHelper dbHelper;
-    private String currentFeeling;
-
-    // Activity result launcher
-    private ActivityResultLauncher<Intent> activityResultLauncher = registerForActivityResult(
-            new ActivityResultContracts.StartActivityForResult(),
-            new ActivityResultCallback<ActivityResult>() {
-                @Override
-                public void onActivityResult(ActivityResult result) {
-                    if (result.getResultCode() == RESULT_OK && result.getData() != null) {
-                        boolean taskCompleted = result.getData().getBooleanExtra("task_completed", false);
-                        String taskName = result.getData().getStringExtra("task_name");
-
-
-                    }
-                }
-            });
+    private String feeling;
+    private LinearLayout tasksContainer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_default_task);
 
-        currentFeeling = getIntent().getStringExtra("FEELING");
-        if (currentFeeling == null) {
-            currentFeeling = "depression";
-        }
-
-        currentFeeling = currentFeeling.toLowerCase().trim();
-        setTitle("Tasks for " + capitalizeFirstLetter(currentFeeling));
-
         dbHelper = new DatabaseHelper(this);
-        tasksRecyclerView = findViewById(R.id.tasksRecyclerView);
-        tasksRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        tasksContainer = findViewById(R.id.tasksContainer);
 
-        loadTasks();
-    }
-
-    private String capitalizeFirstLetter(String str) {
-        if (str == null || str.isEmpty()) {
-            return str;
+        // Get the feeling from intent
+        feeling = getIntent().getStringExtra("feeling");
+        if (feeling == null) {
+            feeling = "depression"; // default
         }
-        return str.substring(0, 1).toUpperCase() + str.substring(1);
+
+        // Convert feeling to test name
+        String testName = convertFeelingToTestName(feeling);
+
+        // Load tasks for this test
+        loadTasks(testName);
     }
 
-    private void loadTasks() {
-        List<Task> tasks = getFilteredTasks();
-        taskAdapter = new TaskAdapter(tasks);
-        tasksRecyclerView.setAdapter(taskAdapter);
-        Log.d(TAG, "Loaded " + tasks.size() + " tasks for feeling: " + currentFeeling);
+    private String convertFeelingToTestName(String feeling) {
+        switch (feeling.toLowerCase()) {
+            case "depression":
+                return "phq9";
+            case "anxiety":
+                return "gad7";
+            case "stress":
+                return "pss";
+            case "selfesteem":
+                return "rse";
+            default:
+                return "phq9"; // default
+        }
     }
 
-    private List<Task> getFilteredTasks() {
-        List<Task> tasks = new ArrayList<>();
+    private void loadTasks(String testName) {
         SQLiteDatabase db = dbHelper.getReadableDatabase();
-        String testFilter = getTestFilterForFeeling(currentFeeling);
 
-        String query = "SELECT * FROM " + DatabaseHelper.TABLE_TASKS +
-                " WHERE " + DatabaseHelper.COLUMN_TASK_TYPE + " IN ('Text', 'Time')" +
-                " AND " + DatabaseHelper.COLUMN_TASK_TEST_NAME + " = ?";
+        // Query tasks for the specific test
+        Cursor cursor = db.query(
+                DatabaseHelper.TABLE_TASKS,
+                new String[]{
+                        DatabaseHelper.COLUMN_TASK_NAME,
+                        DatabaseHelper.COLUMN_TASK_TYPE,
+                        DatabaseHelper.COLUMN_TASK_LEVEL
+                },
+                DatabaseHelper.COLUMN_TASK_TEST_NAME + " = ?",
+                new String[]{testName},
+                null, null, null
+        );
 
-        try (Cursor cursor = db.rawQuery(query, new String[]{testFilter})) {
-            if (cursor.moveToFirst()) {
-                int nameIndex = cursor.getColumnIndexOrThrow(DatabaseHelper.COLUMN_TASK_NAME);
-                int typeIndex = cursor.getColumnIndexOrThrow(DatabaseHelper.COLUMN_TASK_TYPE);
-                int testNameIndex = cursor.getColumnIndexOrThrow(DatabaseHelper.COLUMN_TASK_TEST_NAME);
-                int levelIndex = cursor.getColumnIndexOrThrow(DatabaseHelper.COLUMN_TASK_LEVEL);
+        tasksContainer.removeAllViews(); // Clear existing views
 
-                do {
-                    String name = cursor.getString(nameIndex);
-                    String type = cursor.getString(typeIndex);
-                    String testName = cursor.getString(testNameIndex);
-                    String level = cursor.getString(levelIndex);
+        if (cursor.moveToFirst()) {
+            do {
+                String taskName = cursor.getString(0);
+                String taskType = cursor.getString(1);
+                String taskLevel = cursor.getString(2);
 
+                // Create card for each task
+                CardView cardView = new CardView(this);
+                LinearLayout.LayoutParams cardParams = new LinearLayout.LayoutParams(
+                        LinearLayout.LayoutParams.MATCH_PARENT,
+                        LinearLayout.LayoutParams.WRAP_CONTENT
+                );
+                cardParams.setMargins(16, 8, 16, 8);
+                cardView.setLayoutParams(cardParams);
+                cardView.setCardElevation(8);
+                cardView.setRadius(12);
+                cardView.setContentPadding(16, 16, 16, 16);
 
+                // Create button for task
+                Button taskButton = new Button(this);
+                taskButton.setLayoutParams(new LinearLayout.LayoutParams(
+                        LinearLayout.LayoutParams.MATCH_PARENT,
+                        LinearLayout.LayoutParams.WRAP_CONTENT
+                ));
+                taskButton.setText(taskName);
+                taskButton.setAllCaps(false);
+                taskButton.setTextSize(16);
+                taskButton.setBackgroundResource(R.drawable.card_background); // Add your own drawable
+                taskButton.setPadding(16, 16, 16, 16);
 
-                } while (cursor.moveToNext());
-            }
-        } catch (Exception e) {
-            Log.e(TAG, "Error querying tasks", e);
-        }
-
-        return tasks;
-    }
-
-    private String getTestFilterForFeeling(String feeling) {
-        if (feeling.contains("stress")) {
-            return "pss";
-        } else if (feeling.contains("self") || feeling.contains("esteem")) {
-            return "rse";
-        } else if (feeling.contains("anxiety")) {
-            return "gad7";
-        } else if (feeling.contains("depress")) {
-            return "phq9";
-        }
-        return "phq9";
-    }
-
-
-
-
-
-    private class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder> {
-
-        private List<Task> tasks;
-
-        public TaskAdapter(List<Task> tasks) {
-            this.tasks = tasks;
-        }
-
-        @Override
-        public TaskViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            View view = LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.item_task, parent, false);
-            return new TaskViewHolder(view);
-        }
-
-        @Override
-        public void onBindViewHolder(TaskViewHolder holder, int position) {
-            Task task = tasks.get(position);
-
-            holder.taskNameTextView.setText(task.name);
-            if (task.isCompleted) {
-                // Completed task styling
-                holder.taskNameTextView.setPaintFlags(holder.taskNameTextView.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
-                holder.taskNameTextView.setAlpha(0.5f); // Make text appear faded
-                holder.itemView.setClickable(false); // Disable clicking on completed tasks
-                holder.itemView.setEnabled(false);
-            } else {
-                // Incomplete task styling
-                holder.taskNameTextView.setPaintFlags(holder.taskNameTextView.getPaintFlags() & (~Paint.STRIKE_THRU_TEXT_FLAG));
-                holder.taskNameTextView.setAlpha(1f); // Full opacity
-                holder.itemView.setClickable(true); // Enable clicking on incomplete tasks
-                holder.itemView.setEnabled(true);
-            }
-
-            // Hide type and status TextViews as requested
-            holder.taskTypeTextView.setVisibility(View.GONE);
-            holder.taskStatusTextView.setVisibility(View.GONE);
-
-            // Set click listener for the entire card
-            holder.itemView.setOnClickListener(v -> {
-                if (!task.isCompleted) {
-                    Intent intent;
-                    if ("Time".equalsIgnoreCase(task.type)) {
-                        intent = new Intent(DefaultTaskActivity.this, TimeActivity.class);
-                    } else {
-                        intent = new Intent(DefaultTaskActivity.this, TextActivity.class);
+                // Set click listener based on task type
+                taskButton.setOnClickListener(v -> {
+                    if (taskType.equals("Time")) {
+                        Intent intent = new Intent(DefaultTaskActivity.this, TimeActivity.class);
+                        intent.putExtra("task_description", taskName);
+                        startActivityForResult(intent, 1);
+                    } else if (taskType.equals("Text")) {
+                        Intent intent = new Intent(DefaultTaskActivity.this, TextActivity.class);
+                        intent.putExtra("task_description", taskName);
+                        startActivityForResult(intent, 2);
                     }
-                    intent.putExtra("task_description", task.name);
-                    activityResultLauncher.launch(intent);
-                }
-            });
+                    // For "Tick" and "Suggestion" types, we don't redirect to other activities
+                });
+
+                cardView.addView(taskButton);
+                tasksContainer.addView(cardView);
+
+            } while (cursor.moveToNext());
         }
 
-        @Override
-        public int getItemCount() {
-            return tasks.size();
-        }
+        cursor.close();
+        db.close();
+    }
 
-        class TaskViewHolder extends RecyclerView.ViewHolder {
-            TextView taskNameTextView;
-            TextView taskTypeTextView;
-            TextView taskStatusTextView;
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
 
-            public TaskViewHolder(View itemView) {
-                super(itemView);
-                taskNameTextView = itemView.findViewById(R.id.taskNameTextView);
-                taskTypeTextView = itemView.findViewById(R.id.taskTypeTextView);
-                taskStatusTextView = itemView.findViewById(R.id.taskStatusTextView);
+        if (resultCode == RESULT_OK && data != null) {
+            boolean isCompleted = data.getBooleanExtra("task_completed", false);
+            String taskName = data.getStringExtra("task_name");
+
+            if (isCompleted) {
+                // Find the button with this task name and mark it as completed
+                markTaskAsCompleted(taskName);
             }
         }
     }
 
-    private static class Task {
-        String name;
-        String type;
-        String testName;
-        String level;
-        boolean isCompleted;
-
-        public Task(String name, String type, String testName, String level, boolean isCompleted) {
-            this.name = name;
-            this.type = type;
-            this.testName = testName;
-            this.level = level;
-            this.isCompleted = isCompleted;
+    private void markTaskAsCompleted(String taskName) {
+        for (int i = 0; i < tasksContainer.getChildCount(); i++) {
+            View child = tasksContainer.getChildAt(i);
+            if (child instanceof CardView) {
+                CardView cardView = (CardView) child;
+                View buttonView = cardView.getChildAt(0);
+                if (buttonView instanceof Button) {
+                    Button button = (Button) buttonView;
+                    if (button.getText().toString().equals(taskName)) {
+                        // Strike through text
+                        button.setPaintFlags(button.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+                        // Make it unpressable
+                        button.setClickable(false);
+                        button.setAlpha(0.6f);
+                        break;
+                    }
+                }
+            }
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        dbHelper.close();
+        super.onDestroy();
     }
 }
