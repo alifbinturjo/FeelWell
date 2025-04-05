@@ -3,10 +3,12 @@ package com.example.feelwell;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.AdapterView;
+import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.ArrayList;
@@ -43,7 +45,22 @@ public class TaskActivity extends AppCompatActivity {
         }
 
         SimpleAdapter adapter = new SimpleAdapter(this, taskList, android.R.layout.simple_list_item_2,
-                new String[]{"name", "type"}, new int[]{android.R.id.text1, android.R.id.text2});
+                new String[]{"name", "type"}, new int[]{android.R.id.text1, android.R.id.text2}) {
+            @Override
+            public View getView(int position, View convertView, ViewGroup parent) {
+                View view = super.getView(position, convertView, parent);
+                TextView text2 = view.findViewById(android.R.id.text2);
+
+                // Hide the type text unless it's "Suggestion"
+                if (!taskList.get(position).get("type").equals("Suggestion")) {
+                    text2.setVisibility(View.GONE);
+                } else {
+                    text2.setVisibility(View.VISIBLE);
+                }
+                return view;
+            }
+        };
+
         taskListView.setAdapter(adapter);
 
         taskListView.setOnItemClickListener((parent, view, position, id) -> {
@@ -102,6 +119,4 @@ public class TaskActivity extends AppCompatActivity {
             }
         }
     }
-
-
 }
