@@ -57,7 +57,7 @@ public class DefaultTaskActivity extends AppCompatActivity {
     private void loadTasks(String testName) {
         SQLiteDatabase db = dbHelper.getReadableDatabase();
 
-        // Query tasks for the specific test
+        // Query tasks for the specific test, excluding "Suggestion" and "Tick"
         Cursor cursor = db.query(
                 DatabaseHelper.TABLE_TASKS,
                 new String[]{
@@ -65,8 +65,9 @@ public class DefaultTaskActivity extends AppCompatActivity {
                         DatabaseHelper.COLUMN_TASK_TYPE,
                         DatabaseHelper.COLUMN_TASK_LEVEL
                 },
-                DatabaseHelper.COLUMN_TASK_TEST_NAME + " = ?",
-                new String[]{testName},
+                DatabaseHelper.COLUMN_TASK_TEST_NAME + " = ? AND " +
+                        DatabaseHelper.COLUMN_TASK_TYPE + " NOT IN (?, ?)",  // Exclude Suggestion and Tick
+                new String[]{testName, "Suggestion", "Tick"},
                 null, null, null
         );
 
@@ -113,7 +114,6 @@ public class DefaultTaskActivity extends AppCompatActivity {
                         intent.putExtra("task_description", taskName);
                         startActivityForResult(intent, 2);
                     }
-                    // For "Tick" and "Suggestion" types, we don't redirect to other activities
                 });
 
                 cardView.addView(taskButton);
@@ -125,6 +125,7 @@ public class DefaultTaskActivity extends AppCompatActivity {
         cursor.close();
         db.close();
     }
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {

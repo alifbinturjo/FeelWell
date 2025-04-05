@@ -461,6 +461,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
         cursor.close();
 
+
         // Only return the type if it is "suggestion"
         return taskType;
     }

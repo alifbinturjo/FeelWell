@@ -16,6 +16,8 @@ public class LowSelfEsteemActivity extends AppCompatActivity {
 
     private int totalScore = 0;
     private int userScore = 0;
+
+    private int rev=0;
     private DatabaseHelper dbHelper; // Database helper instance
 
     @Override
@@ -91,9 +93,10 @@ public class LowSelfEsteemActivity extends AppCompatActivity {
     }
 
     private void openResultActivity() {
+        rev=totalScore-userScore;
         Intent intent = new Intent(this, ResultActivity.class);
         intent.putExtra("TOTAL_SCORE", totalScore);
-        intent.putExtra("USER_SCORE", userScore);
+        intent.putExtra("USER_SCORE", rev);
         intent.putExtra("SEVERITY_LEVEL", getSelfEsteemLevel(userScore));
         startActivity(intent);
         finish();
