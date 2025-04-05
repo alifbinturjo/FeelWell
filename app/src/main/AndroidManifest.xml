@@ -13,6 +13,10 @@
         android:theme="@style/Theme.FeelWell"
         tools:targetApi="31">
         <activity
+            android:name=".TickActivity"
+            android:exported="false"
+            android:theme="@style/Theme.FeelWell.NoActionBar"/>
+        <activity
             android:name=".TextActivity"
             android:exported="false"
             android:theme="@style/Theme.FeelWell.NoActionBar" />
@@ -28,7 +32,6 @@
             android:name=".LowSelfEsteemActivity"
             android:exported="false"
             android:theme="@style/Theme.FeelWell.NoActionBar" />
-
         <activity
             android:name=".StressActivity"
             android:exported="false"
@@ -41,12 +44,10 @@
             android:name=".TaskActivity"
             android:exported="false"
             android:theme="@style/Theme.FeelWell.NoActionBar" />
-
         <activity
             android:name=".TimeActivity"
             android:exported="false"
             android:theme="@style/Theme.FeelWell.NoActionBar" />
-
         <activity
             android:name=".DepressionActivity"
             android:exported="false"
