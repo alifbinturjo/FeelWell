@@ -4,8 +4,10 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
@@ -35,6 +37,8 @@ public class ProfileActivity extends AppCompatActivity {
 
         // Fetch and display test history
         displayTestHistory();
+
+        displayTaskProgress();
     }
 
     private void displayUserDetails() {
@@ -131,4 +135,29 @@ public class ProfileActivity extends AppCompatActivity {
             }
         });
     }
+
+    private void displayTaskProgress() {
+        // Get task counts from database
+        int totalTasks = databaseHelper.getTotalAssignedTasksCount();
+        int completedTasks = databaseHelper.getCompletedTasksCount();
+
+        // Inflate and add the task progress view
+        View taskProgressView = LayoutInflater.from(this).inflate(R.layout.task_progress_view,
+                (ViewGroup) findViewById(android.R.id.content), false);
+
+        TextView progressText = taskProgressView.findViewById(R.id.progressText);
+        ProgressBar progressBar = taskProgressView.findViewById(R.id.progressBar);
+
+        // Set progress text and bar
+        progressText.setText(String.format("Tasks Completed: %d/%d", completedTasks, totalTasks));
+        if (totalTasks > 0) {
+            int progress = (int) (((float) completedTasks / totalTasks) * 100);
+            progressBar.setProgress(progress);
+        }
+
+        // Add the view to the main layout
+        LinearLayout mainLayout = findViewById(R.id.mainLayout); // Make sure your root layout has this id
+        mainLayout.addView(taskProgressView);
+    }
+
 }

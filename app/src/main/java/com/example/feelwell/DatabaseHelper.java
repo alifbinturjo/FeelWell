@@ -462,11 +462,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         cursor.close();
 
         // Only return the type if it is "suggestion"
-        if ("suggestion".equals(taskType)) {
-            return taskType;
-        } else {
-            return ""; // Or return null if you prefer
-        }
+        return taskType;
     }
 
 
@@ -477,6 +473,36 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put(COLUMN_TASK_HISTORY_STATUS, status);
         db.update(TABLE_TASK_HISTORY, values, COLUMN_TASK_HISTORY_TASK_NAME + " = ?", new String[]{taskName});
         db.close();
+    }
+
+    // Add these methods to DatabaseHelper.java
+    public int getTotalAssignedTasksCount() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(
+                "SELECT COUNT(*) FROM " + TABLE_TASK_HISTORY +
+                        " WHERE " + COLUMN_TASK_HISTORY_TYPE + " != 'Suggestion'",
+                null);
+        int count = 0;
+        if (cursor.moveToFirst()) {
+            count = cursor.getInt(0);
+        }
+        cursor.close();
+        return count;
+    }
+
+    public int getCompletedTasksCount() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(
+                "SELECT COUNT(*) FROM " + TABLE_TASK_HISTORY +
+                        " WHERE " + COLUMN_TASK_HISTORY_STATUS + " = 'complete' AND " +
+                        COLUMN_TASK_HISTORY_TYPE + " != 'Suggestion'",
+                null);
+        int count = 0;
+        if (cursor.moveToFirst()) {
+            count = cursor.getInt(0);
+        }
+        cursor.close();
+        return count;
     }
 
 
