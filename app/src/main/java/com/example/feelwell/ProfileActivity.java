@@ -5,9 +5,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
+import com.google.android.material.progressindicator.CircularProgressIndicator;
 
 public class ProfileActivity extends AppCompatActivity {
 
@@ -104,7 +105,7 @@ public class ProfileActivity extends AppCompatActivity {
                 (ViewGroup) findViewById(android.R.id.content), false);
 
         TextView progressText = taskProgressView.findViewById(R.id.progressText);
-        ProgressBar progressBar = taskProgressView.findViewById(R.id.progressBar);
+        CircularProgressIndicator progressBar = taskProgressView.findViewById(R.id.progressBar);
 
         // Set progress text and bar
         int progress = 0;

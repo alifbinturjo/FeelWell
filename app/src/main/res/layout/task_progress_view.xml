@@ -32,12 +32,15 @@
             android:textSize="16sp"
             android:textColor="#000000" />
 
-        <ProgressBar
+        <com.google.android.material.progressindicator.CircularProgressIndicator
             android:id="@+id/progressBar"
-            style="@android:style/Widget.ProgressBar.Horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_gravity="center_horizontal"
             android:layout_marginTop="8dp"
-            android:progressDrawable="@drawable/progress_bar_style" />
+            app:indicatorSize="100dp"
+            app:trackThickness="10dp"
+            app:indicatorColor="#FF0000"
+            app:trackColor="#CCCCCC" />
     </LinearLayout>
 </androidx.cardview.widget.CardView>
