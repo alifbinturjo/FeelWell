@@ -454,14 +454,21 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 new String[]{taskName},
                 null, null, null);
 
+        String taskType = ""; // Default to an empty string
 
-        String taskType = "";
         if (cursor.moveToFirst()) {
-            taskType = cursor.getString(0);
+            taskType = cursor.getString(0); // Get the task type from the first column
         }
         cursor.close();
-        return taskType;
+
+        // Only return the type if it is "suggestion"
+        if ("suggestion".equals(taskType)) {
+            return taskType;
+        } else {
+            return ""; // Or return null if you prefer
+        }
     }
+
 
 
     public void updateTaskStatus(String taskName, String status) {
@@ -471,6 +478,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.update(TABLE_TASK_HISTORY, values, COLUMN_TASK_HISTORY_TASK_NAME + " = ?", new String[]{taskName});
         db.close();
     }
+
 
 }
 
