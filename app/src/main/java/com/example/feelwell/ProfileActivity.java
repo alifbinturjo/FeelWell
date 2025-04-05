@@ -119,4 +119,5 @@ public class ProfileActivity extends AppCompatActivity {
         LinearLayout mainLayout = findViewById(R.id.mainLayout); // Ensure your root layout has this id
         mainLayout.addView(taskProgressView);
     }
+
 }

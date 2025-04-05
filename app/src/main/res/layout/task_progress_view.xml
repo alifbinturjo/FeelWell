@@ -11,7 +11,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="vertical"
         android:padding="16dp">
 
@@ -19,8 +19,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Task Progress"
-            android:textSize="18sp"
             android:textColor="#000000"
+            android:textSize="18sp"
             android:textStyle="bold" />
 
         <TextView
@@ -29,18 +29,37 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:text="Task Progress: 0%"
-            android:textSize="16sp"
-            android:textColor="#000000" />
+            android:textColor="#000000"
+            android:textSize="16sp" />
 
-        <com.google.android.material.progressindicator.CircularProgressIndicator
-            android:id="@+id/progressBar"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+        <!-- Container for overlapping views -->
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="8dp"
-            app:indicatorSize="100dp"
-            app:trackThickness="10dp"
-            app:indicatorColor="#FF0000"
-            app:trackColor="#CCCCCC" />
+            android:layout_marginTop="8dp">
+
+            <!-- Brain Image centered behind progress bar -->
+            <ImageView
+                android:id="@+id/brainImage"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_gravity="center"
+                android:adjustViewBounds="true"
+                android:contentDescription="Brain icon"
+                android:scaleType="fitCenter"
+                android:src="@drawable/brain2" />
+
+            <!-- Progress bar centered over the image -->
+            <com.google.android.material.progressindicator.CircularProgressIndicator
+                android:id="@+id/progressBar"
+                android:layout_width="136dp"
+                android:layout_height="166dp"
+                android:layout_gravity="center"
+                app:indicatorColor="#009688"
+                app:indicatorSize="100dp"
+                app:trackColor="#CCCCCC"
+                app:trackThickness="12dp" />
+        </FrameLayout>
     </LinearLayout>
 </androidx.cardview.widget.CardView>
