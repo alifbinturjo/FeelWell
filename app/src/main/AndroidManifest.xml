@@ -20,6 +20,7 @@
             android:name=".TextActivity"
             android:exported="false"
             android:theme="@style/Theme.FeelWell.NoActionBar" />
+
         <activity
             android:name=".DefaultTaskActivity"
             android:exported="false"

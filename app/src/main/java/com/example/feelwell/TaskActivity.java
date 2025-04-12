@@ -196,7 +196,7 @@ public class TaskActivity extends AppCompatActivity {
             int viewType = getItemViewType(position);
 
             if (viewType == TYPE_HEADER) {
-                // Header view
+                // Header view (no changes needed)
                 if (convertView == null) {
                     convertView = LayoutInflater.from(parent.getContext())
                             .inflate(R.layout.list_header, parent, false);
@@ -205,7 +205,6 @@ public class TaskActivity extends AppCompatActivity {
                 String type = (String) getItem(position);
                 TextView headerText = convertView.findViewById(R.id.headerText);
 
-                // Customize header text based on type
                 switch (type) {
                     case "Time":
                         headerText.setText("Time Tasks");
@@ -225,10 +224,11 @@ public class TaskActivity extends AppCompatActivity {
 
                 return convertView;
             } else {
-                // Item view
-                if (convertView == null) {
+                // Item view - add divider
+                if (convertView == null || convertView.getTag() == null) {
                     convertView = LayoutInflater.from(parent.getContext())
-                            .inflate(android.R.layout.simple_list_item_1, parent, false);
+                            .inflate(R.layout.list_item_with_divider, parent, false);
+                    convertView.setTag("ITEM");
                 }
 
                 @SuppressWarnings("unchecked")
