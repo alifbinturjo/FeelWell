@@ -200,15 +200,5 @@
         </androidx.cardview.widget.CardView>
 
         <!-- Task Progress Section -->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Task Progress"
-            android:textSize="20sp"
-            android:textColor="#000000"
-            android:textStyle="bold"
-            android:layout_marginTop="16dp"
-            android:layout_marginBottom="8dp" />
-
     </LinearLayout>
 </ScrollView>

@@ -4,9 +4,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.android.material.progressindicator.CircularProgressIndicator;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -38,7 +41,20 @@ public class FeelingPromptActivity extends AppCompatActivity {
         RelativeLayout selfEsteemCard = findViewById(R.id.selfEsteemCard);
 
         ImageButton profileButton = findViewById(R.id.profileButton);
-        ImageButton taskButton = findViewById(R.id.taskButton);
+
+        // Initialize progress views
+        CircularProgressIndicator progressBar = findViewById(R.id.progressBar);
+        TextView progressText = findViewById(R.id.progressText);
+
+        // Set up task progress
+        int totalTasks = dbHelper.getTotalAssignedTasksCount();
+        int completedTasks = dbHelper.getCompletedTasksCount();
+        int progress = 0;
+        if (totalTasks > 0) {
+            progress = (int) (((float) completedTasks / totalTasks) * 100);
+        }
+        progressText.setText(String.format("Task Progress: %d%%", progress));
+        progressBar.setProgress(progress);
 
         depressionCard.setOnClickListener(v -> checkAndNavigate("Depression"));
         anxietyCard.setOnClickListener(v -> checkAndNavigate("Anxiety"));
@@ -50,7 +66,8 @@ public class FeelingPromptActivity extends AppCompatActivity {
             startActivity(intent);
         });
 
-        taskButton.setOnClickListener(v -> {
+        // Make brain image clickable to navigate to tasks
+        findViewById(R.id.brainImage).setOnClickListener(v -> {
             Intent intent = new Intent(FeelingPromptActivity.this, TaskActivity.class);
             startActivity(intent);
         });
@@ -93,13 +110,8 @@ public class FeelingPromptActivity extends AppCompatActivity {
                     lockPeriodDays = 14; // Lock for 14 days for Depression and Anxiety
                 } else if ("Stress".equals(feeling)) {
                     lockPeriodDays = 30; // Lock for 30 days for Stress
-                } else if ("Low Self-Esteem".equals(feeling)) {
-                lockPeriodDays = 1; // Lock for 30 days for Stress
-                }
-                else {
-                    // No lock for other feelings (e.g., Low Self-Esteem)
-                    navigateToMainActivity(feeling);
-                    return;
+                } else {
+                    lockPeriodDays = 1; // Lock for 1 day for Self-Esteem
                 }
 
                 if (diffInDays < lockPeriodDays) {
