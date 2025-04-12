@@ -32,6 +32,7 @@
                     android:text="Let’s start by looking at how often you’ve felt nervous or anxious recently."
                     android:textSize="18sp"
                     android:textColor="#000000"
+                    android:background="#009688"
                     android:paddingBottom="8dp"/>
 
                 <!-- Q1: Feeling nervous, anxious, or on edge? -->
@@ -228,6 +229,7 @@
                     android:text="Next, let’s talk about how restless or irritable you’ve been feeling."
                     android:textSize="18sp"
                     android:textColor="#000000"
+                    android:background="#009688"
                     android:paddingBottom="8dp"/>
 
                 <!-- Q4: Trouble relaxing? -->
@@ -424,6 +426,7 @@
                     android:text="Finally, let’s check if you’ve been feeling physically impacted by anxiety."
                     android:textSize="18sp"
                     android:textColor="#000000"
+                    android:background="#009688"
                     android:paddingBottom="8dp"/>
 
                 <!-- Q7: Feeling afraid as if something awful might happen? -->
