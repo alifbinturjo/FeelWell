@@ -40,7 +40,7 @@ public class ProfileActivity extends AppCompatActivity {
         displayTestHistory();
 
         // Display task progress
-        displayTaskProgress();
+
     }
 
     private void displayUserDetails() {
