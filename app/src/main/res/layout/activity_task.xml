@@ -12,12 +12,13 @@
         android:text="Suggested Tasks"
         android:textSize="24sp"
         android:textStyle="bold"
-
         android:layout_gravity="center_horizontal"
         android:layout_marginBottom="16dp"/>
 
     <ListView
         android:id="@+id/taskListView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:divider="@null"
+        android:dividerHeight="0dp"/>
 </LinearLayout>
