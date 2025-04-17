@@ -33,6 +33,9 @@ public class TaskActivity extends AppCompatActivity {
         loadTasks();
     }
 
+
+
+
     private void loadTasks() {
         groupedTasks = new HashMap<>();
         List<String> incompleteTasks = dbHelper.getAssignedTasks();
@@ -129,6 +132,7 @@ public class TaskActivity extends AppCompatActivity {
 
             if (isCompleted) {
                 dbHelper.updateTaskStatus(taskName, "complete");
+                loadTasks();
             }
         }
     }

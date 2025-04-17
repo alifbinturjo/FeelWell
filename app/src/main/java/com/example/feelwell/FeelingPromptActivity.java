@@ -73,6 +73,25 @@ public class FeelingPromptActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        CircularProgressIndicator progressBar = findViewById(R.id.progressBar);
+        TextView progressText = findViewById(R.id.progressText);
+
+        int totalTasks = dbHelper.getTotalAssignedTasksCount();
+        int completedTasks = dbHelper.getCompletedTasksCount();
+        int progress = 0;
+        if (totalTasks > 0) {
+            progress = (int) (((float) completedTasks / totalTasks) * 100);
+        }
+
+        progressText.setText(String.format("Task Progress: %d%%", progress));
+        progressBar.setProgress(progress);
+    }
+
+
     private void checkAndNavigate(String feeling) {
         switch (feeling) {
             case "Depression":
